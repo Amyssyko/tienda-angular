@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="title">
+        <h4>Listado de Productos</h4>
+        <button type="button" class="btn btn-success" routerLink="/addProduct">Agregar Producto</button>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">NOMBRE</th>
+                <th scope="col">MODELO</th>
+                <th scope="col">PRECIO</th>
+                <th scope="col">STOCK</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of listProducts" class="table-secondary">
+                <td>{{ item.nombre }}</td>
+                <td>{{ item.modelo }}</td>
+                <td>{{ item.precio }}</td>
+                <td>{{ item.stock }}</td>
+                <td>
+                    <button routerLink="/edit/{{ item.producto_id }}" type="button"
+                        class="btn btn-info btn-sm">Edit</button>
+                    <button (click)="deleteProduct(item.producto_id)" type="button"
+                        class="btn btn-warning btn-sm ms-4">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

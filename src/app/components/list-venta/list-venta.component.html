@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="title">
+        <h4></h4>
+        <button type="button" class="btn btn-success" routerLink="/addVentas">Agregar Ventas</button>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+           <tr>
+               <th scope="col">FECHA</th>
+               <th scope="col">TOTAL</th>
+           </tr>
+       </thead>
+       <tbody>
+           <tr *ngFor="let item of listVenta" class="table-success">
+               <td>{{ item.fecha |date: 'dd/MM/yyyy'}}</td>
+               <td>{{ item.total }}</td>
+               <td>
+                   <button routerLink="/edit/{{ item.ventas_id }}" type="button" class="btn btn-info btn-sm">Edit</button>
+                   <button   type="button" class="btn btn-warning btn-sm ms-4">Delete</button>
+               </td>
+           </tr> 
+       </tbody>
+ </table>
+</div> 
+
+

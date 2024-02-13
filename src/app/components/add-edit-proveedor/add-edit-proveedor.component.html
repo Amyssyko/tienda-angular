@@ -1,0 +1,42 @@
+<div class="row mt-5">
+    <div class="col-lg-4 offset-lg-4">
+        <div class="card text-white bg-success mb-3" style="max-width: 25rem;">
+            <div class="card-header text-center text-black"><strong>AGREGAR PROVEEDOR</strong> </div>
+            <div class="card-body">
+                <form [formGroup]="form" (ngSubmit)="addProveedor()">
+                    <input formControlName="nombre" type="text" class="form-control" placeholder="Nombre">
+                    <span *ngIf="form.get('nombre')?.hasError('required')&& form.get('nombre')?.touched">
+                        El campo nombre es <strong>Requerido</strong>
+                    </span>
+                    <input formControlName="apellido" type="text" class="form-control mt-3" placeholder="Apellido">
+                    <span *ngIf="form.get('apellido')?.hasError('required')&& form.get('apellido')?.touched">
+                        El campo apellido es <strong>Requerido</strong>
+                    </span>
+                    <input formControlName="direccion" type="text" class="form-control mt-3" placeholder="Direccion">
+                    <span *ngIf="form.get('direccion')?.hasError('required') && form.get('direccion')?.touched">
+                        El campo direccion es <strong>Requerido</strong>
+                    </span>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1" class="form-label mt-4"></label>
+                        <input formControlName="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email">
+                        <span *ngIf="form.get('email')?.hasError('required')&& form.get('email')?.touched">
+                        El campo email es <strong>Requerido</strong>
+                        </span>
+                      </div>
+                    <input formControlName="telefono" type="number" class="form-control mt-3" placeholder="Telefono">
+                    <span *ngIf="form.get('telefono')?.hasError('required')&& form.get('telefono')?.touched">
+                        El campo telefono es <strong>Requerido</strong>
+                    </span>
+                    <div class="row mt-3 text-center">
+                        <div class="col-lg-6">
+                            <button routerLink="/" type="button" class="btn btn-info">Regresar</button>
+                        </div>
+                        <div class="col-lg-6">
+                            <button [disabled]="form.invalid" type="submit" class="btn btn-danger">Aceptar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+          </div>
+    </div>
+</div>
