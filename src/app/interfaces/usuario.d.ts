@@ -1,5 +1,4 @@
-interface Usuario {
-  id: string;
+export class Usuario {
   rol: string;
   cedula: string;
   nombre: string;
@@ -10,4 +9,6 @@ interface Usuario {
   email: string;
 }
 
-export default Usuario;
+export class UsuarioForm extends Usuario {
+  id: string;
+}

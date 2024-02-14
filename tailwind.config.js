@@ -8,6 +8,7 @@ module.exports = {
     extend: {},
   },
   plugins: [
-    require("flowbite/plugin"), // add this line
+    require("flowbite/plugin"),
+    require("tailwindcss-animated"), // add this line
   ],
 };

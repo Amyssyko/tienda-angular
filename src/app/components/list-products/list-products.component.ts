@@ -5,7 +5,6 @@ import { ProductService } from 'src/app/services/product.service';
 @Component({
   selector: 'app-list-products',
   templateUrl: './list-products.component.html',
-  styleUrls: ['./list-products.component.css'],
 })
 export class ListProductsComponent implements OnInit {
   listProducts: Producto[] = [
@@ -46,7 +45,7 @@ export class ListProductsComponent implements OnInit {
   // }
 
   // getLisProducts() {
-  //   this._productService.getProducts().subscribe((data) => {
+  //   this._productService.obtenerProductos().subscribe((data) => {
   //     this.listProducts = data;
 
   //   })

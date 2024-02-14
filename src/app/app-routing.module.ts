@@ -11,6 +11,7 @@ import { ListProveedorComponent } from './components/list-proveedor/list-proveed
 import { ListVentaComponent } from './components/list-venta/list-venta.component';
 import { ListVentas1Component } from './components/list-ventas1/list-ventas1.component';
 import { ProductoComponent } from './components/producto/producto.component';
+import { UsuarioComponent } from './components/usuario/usuario.component';
 
 const routes: Routes = [
   { path: '', component: ListProductsComponent },
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'addVentas', component: AddEditVentasComponent },
   { path: 'addListaVentas', component: AddEditListaVentasComponent },
   { path: 'edit/:id', component: AddEditProductComponent },
+  { path: 'usuarios', component: UsuarioComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 

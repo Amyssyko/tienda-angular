@@ -15,7 +15,7 @@ export class ProductService {
     this.url = environment.endpoint;
     this.endpoint = 'producto';
   }
-  getProducts(): Observable<Producto[]> {
+  obtenerProductos(): Observable<Producto[]> {
     return this.http.get<Producto[]>(`${this.url}${this.endpoint}`);
   }
 }
