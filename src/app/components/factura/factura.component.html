@@ -8,7 +8,7 @@
       class="block justify-end text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       type="button"
     >
-      Agregar Usuario
+      Agregar Factura
     </button>
   </div>
 
@@ -27,7 +27,7 @@
           class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600"
         >
           <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-            Formulario Usuario
+            Formulario Factura
           </h3>
           <button
             (click)="onCloseModal()"
@@ -56,138 +56,145 @@
         <!-- Modal body -->
 
         <div
-          class="md:max-w-md mx-auto rounded-xl border bg-card text-card-foreground shadow w-auto p-4"
+          class="md:max-w-sm mx-auto rounded-xl bg-card text-card-foreground shadow w-auto p-4"
         >
-          <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
-            <div class="grid grid-cols-2 gap-4">
+          <form [formGroup]="facturaForm" (ngSubmit)="onSubmit()">
+            <div class="border px-4 pt-8 rounded-xl grid justify-items-center">
+              <h2 class="mb-4 text-center font-medium">Items</h2>
+
               <fieldset class="relative z-0 w-full mb-5 group">
-                <input
-                  type="text"
-                  formControlName="nombre"
-                  id="nombre"
-                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
+                <select
                   required
-                />
+                  formControlName="usuarioId"
+                  id="productoId"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 py-2.5 px-0 bg-transparent border-b-2 appearance-none focus:outline-none focus:ring-0 peer"
+                >
+                  <option value="" disabled selected hidden>Productos</option>
+                  <option
+                    *ngFor="let producto of productos"
+                    [value]="producto.id"
+                  >
+                    {{ producto.nombre }}
+                  </option>
+                </select>
                 <label
-                  for="nombre"
-                  class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-7 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
-                  >Nombre</label
+                  for="usuarioId"
+                  class="peer-focus:font-medium left-2 absolute text-base text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-10"
+                  >Productos</label
                 >
               </fieldset>
               <fieldset class="relative z-0 w-full mb-5 group">
                 <input
-                  type="text"
-                  formControlName="apellido"
-                  id="apellido"
+                  type="number"
+                  formControlName="cantidad_venta"
+                  id="cantidad_venta"
                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
+                  min="0"
+                  step="0.01"
                   required
                 />
                 <label
-                  for="nombre"
-                  class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-7 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
-                  >Apellido</label
+                  for="cantidad_venta"
+                  class="peer-focus:font-medium left-2 absolute text-base text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
+                  >Cantidad</label
+                >
+              </fieldset>
+              <fieldset class="relative z-0 w-full mb-5 group">
+                <input
+                  type="number"
+                  formControlName="precio_venta"
+                  id="precio_venta"
+                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  placeholder=" "
+                  min="0"
+                  step="0.01"
+                  required
+                />
+                <label
+                  for="precio_venta"
+                  class="peer-focus:font-medium left-2 absolute text-base text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
+                  >Precio Producto</label
+                >
+              </fieldset>
+              <fieldset class="relative z-0 w-full mb-5 group">
+                <input
+                  type="number"
+                  formControlName="descuento_venta"
+                  id="descuento_venta"
+                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  placeholder=" "
+                  min="0"
+                  step="1"
+                  required
+                />
+                <label
+                  for="descuento_venta"
+                  class="peer-focus:font-medium left-2 absolute text-base text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
+                  >Descuento</label
+                >
+              </fieldset>
+            </div>
+            <br />
+            <div class="border px-4 pt-8 rounded-xl grid justify-items-center">
+              <fieldset class="relative z-0 w-full mb-5 group">
+                <select
+                  formControlName="usuarioId"
+                  id="usuarioId"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 py-2.5 px-0 bg-transparent border-b-2 appearance-none focus:outline-none focus:ring-0 peer"
+                >
+                  required >
+                  <option value="" disabled selected hidden>Clientes</option>
+                  <option *ngFor="let usuario of usuarios" [value]="usuario.id">
+                    {{ usuario.nombre }}
+                  </option>
+                </select>
+                <label
+                  for="usuarioId"
+                  class="peer-focus:font-medium left-2 absolute text-base text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-10"
+                  >Clientes</label
+                >
+              </fieldset>
+              <fieldset class="relative z-0 w-full mb-5 group">
+                <input
+                  type="number"
+                  formControlName="precio_final"
+                  id="precio_final"
+                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  placeholder=" "
+                  min="0"
+                  step="0.01"
+                  required
+                />
+                <label
+                  for="precio_final"
+                  class="peer-focus:font-medium left-2 absolute text-base text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
+                  >Precio Total</label
                 >
               </fieldset>
 
-              <fieldset class="relative z-0 w-full mb-5 group">
-                <input
-                  type="email"
-                  formControlName="email"
-                  id="email"
-                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  required
-                />
-                <label
-                  for="email"
-                  class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-7 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
-                  >Correo</label
-                >
-              </fieldset>
-              <fieldset class="relative z-0 w-full mb-5 group">
-                <input
-                  type="text"
-                  formControlName="cedula"
-                  id="cedula"
-                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  required
-                />
-                <label
-                  for="cedula"
-                  class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-7 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
-                  >Cedula</label
-                >
-              </fieldset>
-
-              <fieldset class="relative z-0 w-full mb-5 group">
-                <input
-                  type="text"
-                  formControlName="direccion"
-                  id="direccion"
-                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  required
-                />
-                <label
-                  for="nombre"
-                  class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-7 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
-                  >Dirección</label
-                >
-              </fieldset>
-              <fieldset class="relative z-0 w-full mb-5 group">
-                <input
-                  type="text"
-                  formControlName="password"
-                  id="password"
-                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  required
-                />
-                <label
-                  for="password"
-                  class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-7 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
-                  >Contraseña</label
-                >
-              </fieldset>
-              <fieldset class="relative z-0 w-full mb-5 group">
-                <input
-                  type="tel"
-                  formControlName="telefono"
-                  id="telefono"
-                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  required
-                />
-                <label
-                  for="telefono"
-                  class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-7 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
-                  >Telefono</label
-                >
-              </fieldset>
-
-              <fieldset class="relative z-0 w-full mb-5 group">
-                <input
-                  type="text"
-                  formControlName="rol"
-                  id="rol"
-                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=" "
-                  required
-                />
-                <label
-                  for="rol"
-                  class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-7 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
-                  >Rol Usuario</label
-                >
+              <!-- TW Elements is free under AGPL, with commercial license required for specific uses. See more details: https://tw-elements.com/license/ and contact us for queries at tailwind@mdbootstrap.com -->
+              <fieldset class="relative z-0 w-full mb-5 group mt-4">
+                <div data-te-datepicker-init data-te-input-wrapper-init>
+                  <input
+                    formControlName="fecha_venta"
+                    id="fecha_venta"
+                    type="text"
+                    class="peer block min-h-[auto] w-full rounded border-0 bg-transparent p-3 first-line:leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-gray-200 dark:placeholder:text-gray-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+                    placeholder=" "
+                  />
+                  <label
+                    for="fecha_venta"
+                    class="peer-focus:font-medium left-2 absolute text-base text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-9 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-10"
+                    >Seleccione la fecha de compra</label
+                  >
+                </div>
               </fieldset>
             </div>
 
             <div class="flex flex-col justify-center items-center gap-y-2">
               <button
-                *ngIf="usuarioId"
+                *ngIf="facturaId"
                 type="submit"
                 class="hover:animate-jump hover:animate-once animate-delay-300 animate-ease-in-out animate-alternate-reverse animate-fill-forwards text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-4 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:green-blue-800"
               >
@@ -195,7 +202,7 @@
               </button>
 
               <button
-                *ngIf="!usuarioId"
+                *ngIf="!facturaId"
                 type="submit"
                 class="hover:animate-jump hover:animate-once animate-delay-300 animate-ease-in-out animate-alternate-reverse animate-fill-forwards text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-7 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
@@ -250,7 +257,7 @@
   </div> -->
   <br />
   <div class="relative overflow-x-auto border">
-    <h1 class="text-center font-bold py-6 border-b">Lista de usuarios</h1>
+    <h1 class="text-center font-bold py-4 border-b">Lista de Proveedores</h1>
     <table
       class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
     >
@@ -269,13 +276,10 @@
           </div>
         </th> -->
           <!-- <th scope="col" class="px-6 py-3">ID</th> -->
-          <th
-            scope="col"
-            class="px-6 py-3 flex space-x-2 flex-row items-center justify-stretch"
-          >
-            <span> Nombre </span>
+          <th scope="col" class="px-6 py-3 flex space-x-2">
+            <span>id</span>
             <svg
-              (click)="sortUserName()"
+              (click)="sortFacturaFor()"
               xmlns="http://www.w3.org/2000/svg"
               width="16"
               height="16"
@@ -293,27 +297,26 @@
               <path d="M17 4v16" />
             </svg>
           </th>
-          <th scope="col" class="px-6 py-3">Apellido</th>
-          <th scope="col" class="px-6 py-3">RUC</th>
-          <th scope="col" class="px-6 py-3">Email</th>
-          <th scope="col" class="px-6 py-3">Usuario</th>
-          <th scope="col" class="px-6 py-3">Teléfono</th>
+          <th scope="col" class="px-6 py-3">id usuario</th>
+          <th scope="col" class="px-6 py-3">precio final</th>
+          <th scope="col" class="px-6 py-3">fecha</th>
+          <th scope="col" class="px-6 py-3">detalle factura</th>
           <th scope="col" class="px-6 py-3">Acciones</th>
         </tr>
       </thead>
       <tbody class="animate-fade-down">
         <tr
-          *ngFor="let usuario of usuarios"
+          *ngFor="let factura of facturas"
           class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
         >
           <!-- <td class="w-4 p-4">
           <div class="flex items-center">
             <input
-              id="{{ usuario.id }}"
+              id="{{ factura.id }}"
               type="checkbox"
               class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             />
-            <label for="{{ usuario.id }}" class="sr-only">checkbox</label>
+            <label for="{{ factura.id }}" class="sr-only">checkbox</label>
           </div>
         </td> -->
           <!-- <th
@@ -321,27 +324,50 @@
           class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
         >
           <div class="ps-3">
-            <div class="text-base font-semibold">{{ usuario.id }}</div>
+            <div class="text-base font-semibold">{{ factura.id }}</div>
           </div>
         </th> -->
-          <td class="px-6 py-4">{{ usuario.nombre }}</td>
-          <td class="px-6 py-4">{{ usuario.apellido }}</td>
-          <td class="px-6 py-4">
-            <div class="flex items-center">
-              {{ usuario.cedula }}
-            </div>
+          <td class="w-12 px-6 py-4">{{ factura.id }}</td>
+          <td class="w-12 px-6 py-4">{{ factura.usuarioId }}</td>
+          <td class="w-12 px-6 py-4">{{ factura.precio_final }}</td>
+          <td class="w-12 px-6 py-4">{{ factura.fecha_venta }}</td>
+          <td
+            class="grid grid-cols-1 items-center px-6 py-4 gap-4"
+            *ngFor="let detalle of factura.DetalleFactura"
+          >
+            <ul
+              role="list"
+              class="divide-y divide-gray-200 dark:divide-gray-700"
+            >
+              <li
+                class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400 flex gap-4"
+              >
+                <p>ProductoId</p>
+                <span>{{ detalle.productoId }}</span>
+              </li>
+              <li
+                class="px-6 py-4 text-sm text-gray-500 truncate dark:text-gray-400 flex gap-4"
+              >
+                <p>Descuento</p>
+                <span>{{ detalle.descuento_venta }}</span>
+              </li>
+              <li
+                class="px-6 py-4 text-sm text-gray-500 truncate dark:text-gray-400 flex gap-4"
+              >
+                <p>Precio Unitario</p>
+                <span>{{ detalle.precio_venta }}</span>
+              </li>
+              <li
+                class="px-6 py-4 text-sm text-gray-500 truncate dark:text-gray-400 flex gap-4"
+              >
+                <p>Cantidad</p>
+                <span>{{ detalle.cantidad_venta }}</span>
+              </li>
+            </ul>
           </td>
-          <td class="px-6 py-4">
-            {{ usuario.email }}
-          </td>
-          <td class="px-6 py-4 uppercase">{{ usuario.rol }}</td>
-          <td class="px-6 py-4">
-            {{ usuario.telefono }}
-          </td>
-
           <td class="flex items-center px-6 py-4 gap-4">
             <button
-              (click)="onEdit(usuario.id.toString())"
+              (click)="onEdit(factura.id.toString())"
               data-modal-target="default-modal"
               data-modal-toggle="default-modal"
               class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -351,7 +377,7 @@
             </button>
 
             <button
-              (click)="eliminarUsuario(usuario.id.toString())"
+              (click)="eliminarFactura(factura.id.toString())"
               class="block text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
             >
               Eliminar

@@ -1,4 +1,4 @@
-export class Usuario {
+export class UsuarioForm {
   rol: string;
   cedula: string;
   nombre: string;
@@ -9,6 +9,6 @@ export class Usuario {
   email: string;
 }
 
-export class UsuarioForm extends Usuario {
+export class Usuario extends UsuarioForm {
   id: string;
 }

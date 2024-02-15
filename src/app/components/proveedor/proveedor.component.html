@@ -8,7 +8,7 @@
       class="block justify-end text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       type="button"
     >
-      Agregar Producto
+      Agregar Proveedor
     </button>
   </div>
 
@@ -27,7 +27,7 @@
           class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600"
         >
           <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-            Formulario Producto
+            Formulario Proveedor
           </h3>
           <button
             (click)="onCloseModal()"
@@ -54,11 +54,27 @@
           </button>
         </div>
         <!-- Modal body -->
+
         <div
-          class="md:max-w-sm mx-auto rounded-xl bg-card text-card-foreground shadow w-auto p-6"
+          class="md:max-w-sm mx-auto rounded-xl border bg-card text-card-foreground shadow w-auto p-4"
         >
-          <form [formGroup]="productoForm" (ngSubmit)="onSubmit()">
-            <div class="relative z-0 w-full mb-5 group">
+          <form [formGroup]="proveedorForm" (ngSubmit)="onSubmit()">
+            <fieldset class="relative z-0 w-full mb-5 group">
+              <input
+                type="text"
+                formControlName="ruc"
+                id="ruc"
+                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=" "
+                required
+              />
+              <label
+                for="ruc"
+                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-7 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
+                >RUC</label
+              >
+            </fieldset>
+            <fieldset class="relative z-0 w-full mb-5 group">
               <input
                 type="text"
                 formControlName="nombre"
@@ -70,63 +86,40 @@
               <label
                 for="nombre"
                 class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-7 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
-                >Nombre Producto</label
+                >Nombre</label
               >
-            </div>
-            <div class="relative z-0 w-full mb-5 group">
+            </fieldset>
+            <fieldset class="relative z-0 w-full mb-5 group">
               <input
-                type="number"
-                formControlName="stock"
-                id="stock"
+                type="text"
+                formControlName="direccion"
+                id="direccion"
                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
                 required
               />
               <label
-                for="stock"
+                for="direccion"
                 class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-7 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
-                >Stock</label
+                >Dirección</label
               >
-            </div>
-            <div class="relative z-0 w-full mb-5 group">
+            </fieldset>
+            <fieldset class="relative z-0 w-full mb-5 group">
               <input
-                type="number"
-                formControlName="precio"
-                id="precio"
+                type="tel"
+                formControlName="telefono"
+                id="telefono"
                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=""
-                step="0.01"
-                min="0.01"
                 required
               />
               <label
-                for="precio"
+                for="telefono"
                 class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-7 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
-                >Precio</label
+                >Teléfono</label
               >
-            </div>
+            </fieldset>
 
-            <div class="relative z-0 w-full mb-5 group">
-              <select
-                formControlName="proveedorId"
-                id="proveedorId"
-                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                required
-              >
-                <option value="" disabled selected hidden>Proveedor</option>
-                <option
-                  *ngFor="let proveedor of proveedores"
-                  [value]="proveedor.id"
-                >
-                  {{ proveedor.nombre }}
-                </option>
-              </select>
-              <label
-                for="proveedorId"
-                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-7 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
-                >Proveedor</label
-              >
-            </div>
             <div class="flex flex-col justify-center items-center gap-y-2">
               <button
                 *ngIf="proveedorId"
@@ -157,6 +150,7 @@
       </div>
     </div>
   </div>
+
   <!-- <div
     class="flex border items-center justify-between flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 py-4 bg-white dark:bg-gray-900"
   >
@@ -191,7 +185,7 @@
   </div> -->
   <br />
   <div class="relative overflow-x-auto border">
-    <h1 class="text-center font-bold py-4 border-b">Lista de Productos</h1>
+    <h1 class="text-center font-bold py-4 border-b">Lista de Proveedores</h1>
     <table
       class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
     >
@@ -211,9 +205,9 @@
         </th> -->
           <!-- <th scope="col" class="px-6 py-3">ID</th> -->
           <th scope="col" class="px-6 py-3 flex space-x-2">
-            <span> Nombre </span>
+            <span>ruc</span>
             <svg
-              (click)="sortProductsName()"
+              (click)="sortProveedorFor()"
               xmlns="http://www.w3.org/2000/svg"
               width="16"
               height="16"
@@ -231,9 +225,9 @@
               <path d="M17 4v16" />
             </svg>
           </th>
-          <th scope="col" class="px-6 py-3">Precio</th>
-          <th scope="col" class="px-6 py-3">Stock</th>
-          <th scope="col" class="px-6 py-3">Proveedor</th>
+          <th scope="col" class="px-6 py-3">nombre</th>
+          <th scope="col" class="px-6 py-3">dirección</th>
+          <th scope="col" class="px-6 py-3">teléfono</th>
           <th scope="col" class="px-6 py-3">Creado</th>
           <th scope="col" class="px-6 py-3">Actualizado</th>
           <th scope="col" class="px-6 py-3">Acciones</th>
@@ -241,17 +235,17 @@
       </thead>
       <tbody class="animate-fade-down">
         <tr
-          *ngFor="let producto of productos"
+          *ngFor="let proveedor of proveedores"
           class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
         >
           <!-- <td class="w-4 p-4">
           <div class="flex items-center">
             <input
-              id="{{ producto.id }}"
+              id="{{ proveedor.id }}"
               type="checkbox"
               class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             />
-            <label for="{{ producto.id }}" class="sr-only">checkbox</label>
+            <label for="{{ proveedor.id }}" class="sr-only">checkbox</label>
           </div>
         </td> -->
           <!-- <th
@@ -259,41 +253,23 @@
           class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
         >
           <div class="ps-3">
-            <div class="text-base font-semibold">{{ producto.id }}</div>
+            <div class="text-base font-semibold">{{ proveedor.id }}</div>
           </div>
         </th> -->
-          <td class="px-6 py-4">{{ producto.nombre }}</td>
-          <td class="px-6 py-4">{{ producto.precio }}</td>
+          <td class="px-6 py-4">{{ proveedor.ruc }}</td>
+          <td class="px-6 py-4">{{ proveedor.nombre }}</td>
+          <td class="px-6 py-4">{{ proveedor.direccion }}</td>
+          <td class="px-6 py-4">{{ proveedor.telefono }}</td>
+          <td class="px-6 py-4">{{ proveedor.fecha_creado }}</td>
           <td class="px-6 py-4">
-            <div class="flex items-center">
-              <div
-                *ngIf="producto.stock > 1"
-                class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"
-              ></div>
-              <div
-                *ngIf="producto.stock === 0"
-                class="h-2.5 w-2.5 rounded-full bg-red-500 me-2"
-              ></div>
-              <div
-                *ngIf="producto.stock === 1"
-                class="h-2.5 w-2.5 rounded-full bg-orange-500 me-2"
-              ></div>
-              {{ producto.stock }}
-            </div>
-          </td>
-          <td class="px-6 py-4">
-            {{ producto.proveedorId && "David Pilla" }}
-          </td>
-          <td class="px-6 py-4">{{ producto.fecha_creado }}</td>
-          <td class="px-6 py-4">
-            {{ producto?.fecha_modificacion ?? "No Actualizado" }}
+            {{ proveedor?.fecha_modificacion ?? "No Actualizado" }}
           </td>
 
           <td class="flex items-center px-6 py-4 gap-4">
             <button
-              (click)="onEdit(producto.id.toString())"
-              data-modal-target="crud-modal"
-              data-modal-toggle="crud-modal"
+              (click)="onEdit(proveedor.id.toString())"
+              data-modal-target="default-modal"
+              data-modal-toggle="default-modal"
               class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               type="button"
             >
@@ -301,7 +277,7 @@
             </button>
 
             <button
-              (click)="eliminarProducto(producto.id.toString())"
+              (click)="eliminarProveedor(proveedor.id.toString())"
               class="block text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
             >
               Eliminar

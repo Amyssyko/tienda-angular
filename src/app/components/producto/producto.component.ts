@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { initFlowbite } from 'flowbite';
+import { Modal, initFlowbite } from 'flowbite';
 import { ToastrService } from 'ngx-toastr';
-import {
-  Producto,
-  ProductoAll,
-  ProductoForm,
-} from 'src/app/interfaces/producto.d';
+import { Producto, ProductoForm } from 'src/app/interfaces/producto.d';
 import { Proveedor } from 'src/app/interfaces/proveedor.d';
 import { Filtro } from 'src/app/services/filter.service';
 import { Toast } from 'src/app/services/toaster.service';
@@ -17,12 +13,13 @@ import { ProductService } from 'src/app/shared/services/producto.service';
   templateUrl: './producto.component.html',
 })
 export class ProductoComponent implements OnInit {
+  proveedor: string = 'cc379332-8f67-4261-8801-81e6fa949c71';
   productoForm!: FormGroup;
   proveedorId: string = '';
-  productos: ProductoAll[] = [];
+  productos: Producto[] = [];
   proveedores: Proveedor[] = [];
   toast: Toast; // Declara una variable para la instancia de Toast
-  filtra!: Filtro<ProductoAll>;
+  filtra!: Filtro<Producto>;
 
   constructor(
     private _productService: ProductService,
@@ -31,7 +28,7 @@ export class ProductoComponent implements OnInit {
   ) {
     {
       this.toast = new Toast(this.toastr); // Inicializa la instancia de Toast
-      this.filtra = new Filtro<ProductoAll>(); // Inicializa la instancia de Filtro
+      this.filtra = new Filtro<Producto>(); // Inicializa la instancia de Filtro
     }
   }
   ngOnInit(): void {
@@ -49,22 +46,6 @@ export class ProductoComponent implements OnInit {
   //create sortProducts Name
   sortProductsName() {
     this.filtra.filtrarPorPropiedad(this.productos, 'nombre');
-    // // Si productos está vacío o tiene solo un elemento, no es necesario ordenar
-    // if (this.productos.length <= 1) return;
-
-    // // Invertir el estado de orden al llamar a la función
-    // this.ordernarPor = !this.ordernarPor;
-
-    // // Ordenar los productos según el estado actual (ascendente o descendente)
-    // if (this.ordernarPor) {
-    //   this.productos = this.productos.sort((a, b) =>
-    //     a.nombre.localeCompare(b.nombre)
-    //   );
-    // } else {
-    //   this.productos = this.productos.sort((a, b) =>
-    //     b.nombre.localeCompare(a.nombre)
-    //   );
-    // }
   }
 
   obtenerProveedores() {
@@ -74,7 +55,7 @@ export class ProductoComponent implements OnInit {
   }
   onSubmit() {
     if (this.productoForm.valid) {
-      const producto: Producto = {
+      const producto: ProductoForm = {
         nombre: this.productoForm.value.nombre,
         stock: this.productoForm.value.stock,
         precio: this.productoForm.value.precio,
@@ -84,8 +65,9 @@ export class ProductoComponent implements OnInit {
       if (this.proveedorId !== '') {
         this.actualizarProducto(this.proveedorId, this.productoForm.value);
       } else {
-        this.crearProductoo(producto);
+        this.crearProducto(producto);
       }
+      this.onCloseModal();
     } else {
       this.toast.showWarning(
         'Formulario inválido, algunos campos son inválidos o están vacíos'
@@ -98,7 +80,35 @@ export class ProductoComponent implements OnInit {
     this.proveedorId = '';
   }
 
+  onCloseModal() {
+    const $modal = document.getElementById('crud-modal');
+    // options with default values
+
+    const modal = new Modal($modal);
+
+    // show the modal
+    modal.hide();
+
+    // hide the modal
+    // modal.hide();
+  }
+
+  onOpenModal() {
+    const $modal = document.getElementById('crud-modal');
+    // options with default values
+
+    const modal = new Modal($modal);
+
+    // show the modal
+    modal.show();
+
+    // hide the modal
+    // modal.hide();
+  }
+
   onEdit(id: string) {
+    this.resetForm();
+    this.onOpenModal();
     this.proveedorId = id;
     this._productService.obtenerProducto(id).subscribe((data) => {
       this.productoForm.setValue({
@@ -124,7 +134,7 @@ export class ProductoComponent implements OnInit {
       };
   }
 
-  crearProductoo(producto: Producto) {
+  crearProducto(producto: ProductoForm) {
     this._productService.crearProducto(producto).subscribe((data) => {
       if (data) {
         this.resetForm();
@@ -155,7 +165,7 @@ export class ProductoComponent implements OnInit {
   obtenerProductos() {
     this._productService.obtenerProductos().subscribe((data) => {
       const newData = data.filter(
-        (item) => item.proveedorId === 'e85eca43-2af5-47bd-ad10-c31af2e39dd5'
+        (item) => item.proveedorId === this.proveedor
       );
 
       this.productos = newData.map((item) => {

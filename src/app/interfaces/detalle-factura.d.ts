@@ -1,10 +1,11 @@
-interface DetalleFactura {
-  id: string;
+export class DetalleFacturaForm {
   cantidad_venta: number;
   precio_venta: number;
   descuento_venta: number;
-  FacturacionId: string;
   productoId: string;
 }
 
-export default DetalleFactura;
+export class DetalleFactura extends DetalleFacturaForm {
+  facturacionId: string;
+  id: string;
+}

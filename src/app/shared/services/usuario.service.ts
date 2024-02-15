@@ -20,67 +20,70 @@ export class UsuarioService {
     this.toast = new Toast(this.toastr);
   }
 
-  obtenerUsuarios(): Observable<UsuarioForm[]> {
-    return this.http.get<UsuarioForm[]>(`${this.url}${this.endpoint}`).pipe(
+  obtenerUsuarios(): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(`${this.url}${this.endpoint}`).pipe(
       catchError((error: HttpErrorResponse) => {
-        // Aquí puedes manejar el error como desees, por ejemplo, mostrando un mensaje al usuario
-        this.toast.showError(error.error.error);
-        return throwError(error.error.error);
+        if (error.status === 400) {
+          this.toast.showError(error.error);
+        }
+        return throwError('Algo salio mal');
       })
     );
   }
 
-  obtenerUsuario(id: string): Observable<UsuarioForm> {
-    return this.http.get<UsuarioForm>(`${this.url}${this.endpoint}/${id}`).pipe(
+  obtenerUsuario(id: string): Observable<Usuario> {
+    return this.http.get<Usuario>(`${this.url}${this.endpoint}/${id}`).pipe(
       catchError((error: HttpErrorResponse) => {
         // Aquí puedes manejar el error como desees, por ejemplo, mostrando un mensaje al usuario
         if (error.error.error) {
           this.toast.showError(error.error.error);
         }
-        return throwError(error.error.error);
+        return throwError('Algo salio mal');
       })
     );
   }
 
-  crearUsuario(stateUser: Usuario): Observable<UsuarioForm> {
+  crearUsuario(stateUser: UsuarioForm): Observable<Usuario> {
     return this.http
-      .post<UsuarioForm>(`${this.url}${this.endpoint}`, stateUser)
+      .post<Usuario>(`${this.url}${this.endpoint}`, stateUser)
       .pipe(
         catchError((error: HttpErrorResponse) => {
-          // Aquí puedes manejar el error como desees, por ejemplo, mostrando un mensaje al usuario
-          if (error.error.error) {
-            this.toast.showError(error.error.error);
+          if (error.status === 400) {
+            this.toast.showError(error.error);
           }
-          return throwError(error.error.error);
+          return throwError('Algo salio mal');
         })
       );
   }
 
-  actualizarUsuario(id: string, user: Usuario): Observable<UsuarioForm> {
+  actualizarUsuario(id: string, user: UsuarioForm): Observable<Usuario> {
     return this.http
-      .put<UsuarioForm>(`${this.url}${this.enpointId}${id}`, user)
+      .put<Usuario>(`${this.url}${this.enpointId}${id}`, user)
       .pipe(
         catchError((error: HttpErrorResponse) => {
+          if (error.status === 400) {
+            this.toast.showError(error.error);
+          }
+          console.log(error.status);
+          console.log(error.error);
           if (error.error.error) {
             this.toast.showError(error.error.error);
           }
           // Aquí puedes manejar el error como desees, por ejemplo, mostrando un mensaje al usuario
-          return throwError(error.error.error);
+          return throwError('Algo salio mal');
         })
       );
   }
 
-  eliminarUsuario(id: string): Observable<UsuarioForm> {
-    return this.http
-      .delete<UsuarioForm>(`${this.url}${this.enpointId}${id}`)
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          // Aquí puedes manejar el error como desees, por ejemplo, mostrando un mensaje al usuario
-          if (error.error.error) {
-            this.toast.showError(error.error.error);
-          }
-          return throwError(error.error.error);
-        })
-      );
+  eliminarUsuario(id: string): Observable<Usuario> {
+    return this.http.delete<Usuario>(`${this.url}${this.enpointId}${id}`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        // Aquí puedes manejar el error como desees, por ejemplo, mostrando un mensaje al usuario
+        if (error.error.error) {
+          this.toast.showError(error.error.error);
+        }
+        return throwError('Algo salio mal');
+      })
+    );
   }
 }

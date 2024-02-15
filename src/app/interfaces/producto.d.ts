@@ -1,23 +1,12 @@
-export class Producto {
+export class ProductoForm {
   nombre: string;
   stock: number;
   precio: number;
   proveedorId: string;
-
-  //  constructor(id: string, nombre: string, stock: number, precio: number, proveedorId: string) {
-  //     this.id = id;
-  //     this.nombre = nombre;
-  //     this.stock = stock;
-  //     this.precio = precio;
-  //     this.proveedorId = proveedorId;
-  //   }
 }
 
-export class ProductoForm extends Producto {
+export class Producto extends ProductoForm {
   id: string;
-}
-
-export class ProductoAll extends ProductoForm {
   fecha_creado: Date | string;
   fecha_modificacion: Date | string | null;
 }

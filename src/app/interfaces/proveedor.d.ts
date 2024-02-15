@@ -1,11 +1,12 @@
-export class Proveedor {
-  id: string;
+export class ProveedorForm {
   ruc: string;
   nombre: string;
   direccion: string;
   telefono: string;
-  fecha_creado: Date;
-  fecha_modificacion: Date | null;
 }
 
-export default Proveedor;
+export class Proveedor extends ProveedorForm {
+  id: string;
+  fecha_creado: Date | string;
+  fecha_modificacion: Date | string | null;
+}

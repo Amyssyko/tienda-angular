@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { initFlowbite } from 'flowbite';
+import { Modal, initFlowbite } from 'flowbite';
 import { ToastrService } from 'ngx-toastr';
 import { Usuario, UsuarioForm } from 'src/app/interfaces/usuario';
 import { Filtro } from 'src/app/services/filter.service';
@@ -46,9 +46,9 @@ export class UsuarioComponent implements OnInit {
   //   email: new FormControl('', [Validators.required, Validators.email]),
   // });
   usuarioId: string = '';
-  usuarios: UsuarioForm[] = [];
+  usuarios: Usuario[] = [];
   toast!: Toast; // Declara una variable para la instancia de Toast
-  filtra!: Filtro<UsuarioForm>;
+  filtra!: Filtro<Usuario>;
 
   constructor(
     private _usuarioService: UsuarioService,
@@ -57,7 +57,7 @@ export class UsuarioComponent implements OnInit {
   ) {
     {
       this.toast = new Toast(this.toastr); // Inicializa la instancia de Toast
-      this.filtra = new Filtro<UsuarioForm>(); // Inicializa la instancia de Filtro
+      this.filtra = new Filtro<Usuario>(); // Inicializa la instancia de Filtro
     }
   }
 
@@ -90,7 +90,7 @@ export class UsuarioComponent implements OnInit {
       };
   }
 
-  crearUsuario(usuario: Usuario) {
+  crearUsuario(usuario: UsuarioForm) {
     this._usuarioService.crearUsuario(usuario).subscribe((data) => {
       this.resetForm();
       this.obtenerUsuarios();
@@ -102,7 +102,7 @@ export class UsuarioComponent implements OnInit {
       };
   }
 
-  actualizarUsuario(id: string, usuario: Usuario) {
+  actualizarUsuario(id: string, usuario: UsuarioForm) {
     this._usuarioService.actualizarUsuario(id, usuario).subscribe((data) => {
       this.resetForm();
       this.obtenerUsuarios();
@@ -125,6 +125,8 @@ export class UsuarioComponent implements OnInit {
   }
 
   onEdit(id: string) {
+    this.resetForm();
+    this.onOpenModal();
     this.usuarioId = id;
     this._usuarioService.obtenerUsuario(id).subscribe((data) => {
       this.usuarioForm.setValue({
@@ -139,6 +141,31 @@ export class UsuarioComponent implements OnInit {
       });
     });
   }
+  onCloseModal() {
+    const $modal = document.getElementById('crud-modal');
+    // options with default values
+
+    const modal = new Modal($modal);
+
+    // show the modal
+    modal.hide();
+
+    // hide the modal
+    // modal.hide();
+  }
+
+  onOpenModal() {
+    const $modal = document.getElementById('crud-modal');
+    // options with default values
+
+    const modal = new Modal($modal);
+
+    // show the modal
+    modal.show();
+
+    // hide the modal
+    // modal.hide();
+  }
 
   //create sortProducts Name
   sortUserName() {
@@ -147,7 +174,7 @@ export class UsuarioComponent implements OnInit {
 
   onSubmit() {
     if (this.usuarioForm.valid) {
-      const usuario: Usuario = {
+      const usuario: UsuarioForm = {
         rol: this.usuarioForm.value.rol,
         cedula: this.usuarioForm.value.cedula,
         nombre: this.usuarioForm.value.nombre,
@@ -163,6 +190,7 @@ export class UsuarioComponent implements OnInit {
       } else {
         this.crearUsuario(usuario);
       }
+      this.onCloseModal();
     } else {
       this.toast.showError(
         'Formulario inválido, complete los campos requeridos'

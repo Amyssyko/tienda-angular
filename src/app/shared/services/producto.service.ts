@@ -2,11 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, catchError, throwError } from 'rxjs';
-import {
-  Producto,
-  ProductoAll,
-  ProductoForm,
-} from 'src/app/interfaces/producto.d';
+import { Producto, ProductoForm } from 'src/app/interfaces/producto.d';
 import { Proveedor } from 'src/app/interfaces/proveedor.d';
 import { Toast } from 'src/app/services/toaster.service';
 import { environment } from 'src/environments/environment';
@@ -16,7 +12,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ProductService {
   url = environment.endpoint;
-  proveedor = 'proveedor-producto/e85eca43-2af5-47bd-ad10-c31af2e39dd5';
+  proveedor = 'proveedor-producto/cc379332-8f67-4261-8801-81e6fa949c71';
   endpoint = 'producto';
   endpoint_proveedor = 'proveedor';
   enpointId = 'producto/';
@@ -29,15 +25,24 @@ export class ProductService {
   }
 
   obtenerProveedores(): Observable<Proveedor[]> {
-    return this.http.get<Proveedor[]>(`${this.url}${this.endpoint_proveedor}`);
+    return this.http
+      .get<Proveedor[]>(`${this.url}${this.endpoint_proveedor}`)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          // Aquí puedes manejar el error como desees, por ejemplo, mostrando un mensaje al usuario
+          this.toast.showError(error.error.error);
+          return throwError('Algo salio mal');
+        })
+      );
   }
 
-  obtenerProductos(): Observable<ProductoAll[]> {
-    return this.http.get<ProductoAll[]>(`${this.url}${this.endpoint}`).pipe(
+  obtenerProductos(): Observable<Producto[]> {
+    return this.http.get<Producto[]>(`${this.url}${this.endpoint}`).pipe(
       catchError((error: HttpErrorResponse) => {
-        // Aquí puedes manejar el error como desees, por ejemplo, mostrando un mensaje al usuario
-        this.toast.showError(error.error.error);
-        return throwError(error.error.error);
+        if (error.status === 400) {
+          this.toast.showError(error.error);
+        }
+        return throwError('Algo salio mal');
       })
     );
   }
@@ -45,45 +50,44 @@ export class ProductService {
   obtenerProducto(id: string): Observable<Producto> {
     return this.http.get<Producto>(`${this.url}${this.enpointId}${id}`).pipe(
       catchError((error: HttpErrorResponse) => {
-        // Aquí puedes manejar el error como desees, por ejemplo, mostrando un mensaje al usuario
-        this.toast.showError(error.error.error);
-        return throwError(error.error.error);
+        if (error.status === 400) {
+          this.toast.showError(error.error);
+        }
+        return throwError('Algo salio mal');
       })
     );
   }
 
-  crearProducto(stateProducto: Producto): Observable<Producto> {
+  crearProducto(stateProducto: ProductoForm): Observable<Producto> {
     return this.http
       .post<Producto>(`${this.url}${this.endpoint}`, stateProducto)
       .pipe(
         catchError((error: HttpErrorResponse) => {
           // Aquí puedes manejar el error como desees, por ejemplo, mostrando un mensaje al usuario
           this.toast.showError(error.error.error);
-          return throwError(error.error.error);
+          return throwError('Algo salio mal');
         })
       );
   }
 
-  actualizarProducto(
-    id: string,
-    producto: ProductoForm
-  ): Observable<ProductoForm> {
+  actualizarProducto(id: string, producto: ProductoForm): Observable<Producto> {
     return this.http
-      .put<ProductoForm>(`${this.url}${this.enpointId}${id}`, producto)
+      .put<Producto>(`${this.url}${this.enpointId}${id}`, producto)
       .pipe(
         catchError((error: HttpErrorResponse) => {
           // Aquí puedes manejar el error como desees, por ejemplo, mostrando un mensaje al usuario
           this.toast.showError(error.error.error);
-          return throwError(error.error.error);
+          return throwError('Algo salio mal');
         })
       );
   }
   eliminarProducto(id: string): Observable<Producto> {
     return this.http.delete<Producto>(`${this.url}${this.enpointId}${id}`).pipe(
       catchError((error: HttpErrorResponse) => {
-        // Aquí puedes manejar el error como desees, por ejemplo, mostrando un mensaje al usuario
-        this.toast.showError(error.error.error);
-        return throwError(error.error.error);
+        if (error.status === 400) {
+          this.toast.showError(error.error);
+        }
+        return throwError('Algo salio mal');
       })
     );
   }
