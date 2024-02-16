@@ -5,10 +5,25 @@
       (click)="resetForm(); onOpenModal()"
       data-modal-target="crud-modal"
       data-modal-toggle="crud-modal"
-      class="block justify-end text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      class="flex items-center space-x-2 justify-end text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       type="button"
     >
-      Agregar Producto
+      <svg
+        class="w-4 h-4 text-white"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 18 18"
+      >
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M9 1v16M1 9h16"
+        />
+      </svg>
+      <span> Agregar</span>
     </button>
   </div>
 
@@ -147,7 +162,7 @@
               <button
                 (click)="resetForm()"
                 type="button"
-                class="hover:animate-jump hover:animate-once animate-delay-300 animate-ease-in-out animate-alternate-reverse animate-fill-forwards text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-slate-600 dark:hover:bg-slate-700 dark:focus:ring-slate-800"
+                class="hover:animate-jump hover:animate-once animate-delay-300 animate-ease-in-out animate-alternate-reverse animate-fill-forwards text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm w-full sm:w-auto px-4 py-2.5 text-center dark:bg-slate-600 dark:hover:bg-slate-700 dark:focus:ring-slate-800"
               >
                 Resetear
               </button>
@@ -190,13 +205,13 @@
     </div>
   </div> -->
   <br />
-  <div class="relative overflow-x-auto border">
+  <div class="rounded-3xl">
     <h1 class="text-center font-bold py-4 border-b">Lista de Productos</h1>
     <table
-      class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+      class="w-full text-sm text-gray-500 dark:text-gray-400 border border-slate-500"
     >
       <thead
-        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+        class="text-xs text-gray-100 uppercase bg-sky-900 border-b border-blue-400 dark:bg-gray-700 dark:text-gray-400"
       >
         <tr class="border-b">
           <!-- <th scope="col" class="p-4">
@@ -241,8 +256,12 @@
       </thead>
       <tbody class="animate-fade-down">
         <tr
-          *ngFor="let producto of productos"
-          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+          *ngFor="let producto of productos; let i = index"
+          class="border-2"
+          [ngClass]="{
+            'bg-sky-700 text-white': i % 2 === 0,
+            'text-slate-700': i % 2 !== 0
+          }"
         >
           <!-- <td class="w-4 p-4">
           <div class="flex items-center">
@@ -256,15 +275,17 @@
         </td> -->
           <!-- <th
           scope="row"
-          class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
+          class="flex items-center px-4 py-1 text-gray-900 whitespace-nowrap dark:text-white"
         >
           <div class="ps-3">
             <div class="text-base font-semibold">{{ producto.id }}</div>
           </div>
         </th> -->
-          <td class="px-6 py-4">{{ producto.nombre }}</td>
-          <td class="px-6 py-4">{{ producto.precio }}</td>
-          <td class="px-6 py-4">
+          <td class="px-6 py-1">
+            {{ producto.nombre }}
+          </td>
+          <td class="px-6 py-1">{{ producto.precio }}</td>
+          <td class="px-6 py-1">
             <div class="flex items-center">
               <div
                 *ngIf="producto.stock > 1"
@@ -281,20 +302,20 @@
               {{ producto.stock }}
             </div>
           </td>
-          <td class="px-6 py-4">
+          <td class="px-6 py-1">
             {{ producto.proveedorId && "David Pilla" }}
           </td>
-          <td class="px-6 py-4">{{ producto.fecha_creado }}</td>
-          <td class="px-6 py-4">
+          <td class="px-6 py-1">{{ producto.fecha_creado }}</td>
+          <td class="px-6 py-1">
             {{ producto?.fecha_modificacion ?? "No Actualizado" }}
           </td>
 
-          <td class="flex items-center px-6 py-4 gap-4">
+          <td class="flex items-center px-6 py-1 gap-4">
             <button
               (click)="onEdit(producto.id.toString())"
               data-modal-target="crud-modal"
               data-modal-toggle="crud-modal"
-              class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               type="button"
             >
               Editar
@@ -302,7 +323,7 @@
 
             <button
               (click)="eliminarProducto(producto.id.toString())"
-              class="block text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+              class="block text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
             >
               Eliminar
             </button>

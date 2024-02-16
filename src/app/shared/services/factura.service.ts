@@ -24,9 +24,8 @@ export class FacturaService {
   obtenerFacturas(): Observable<Factura[]> {
     return this.http.get<Factura[]>(`${this.url}${this.endpoint}`).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 400) {
-          this.toast.showError(error.error);
-        }
+        this.toast.showError(error.error);
+
         return throwError('Algo salio mal');
       })
     );
@@ -35,9 +34,8 @@ export class FacturaService {
   obtenerFactura(id: string): Observable<Factura> {
     return this.http.get<Factura>(`${this.url}${this.enpointId}${id}`).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 400) {
-          this.toast.showError(error.error);
-        }
+        this.toast.showError(error.error);
+
         return throwError('Algo salio mal');
       })
     );
@@ -50,7 +48,6 @@ export class FacturaService {
           this.toast.showError(error.error);
         }
 
-        // Aquí puedes manejar el error como desees, por ejemplo, mostrando un mensaje al usuario
         return throwError(error.error);
       })
     );
@@ -61,8 +58,7 @@ export class FacturaService {
       .put<Factura>(`${this.url}${this.enpointId}${id}`, factura)
       .pipe(
         catchError((error: HttpErrorResponse) => {
-          // Aquí puedes manejar el error como desees, por ejemplo, mostrando un mensaje al usuario
-          this.toast.showError(error.error.error);
+          this.toast.showError(error.error);
           return throwError('Algo salio mal');
         })
       );
@@ -70,9 +66,8 @@ export class FacturaService {
   eliminarFactura(id: string): Observable<Factura> {
     return this.http.delete<Factura>(`${this.url}${this.enpointId}${id}`).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 400) {
-          this.toast.showError(error.error);
-        }
+        this.toast.showError(error.error);
+
         return throwError('Algo salio mal');
       })
     );

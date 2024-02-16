@@ -10,7 +10,7 @@ export class NavbarComponent implements OnInit {
   usuario: Usuario = new Usuario();
 
   link: { name: string; url: string; pathname: boolean }[] = [
-    { name: 'inicio', url: '/', pathname: '/' === window.location.pathname },
+    // { name: 'inicio', url: '/', pathname: '/' === window.location.pathname },
     {
       name: 'productos',
       url: '/productos',

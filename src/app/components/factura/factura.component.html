@@ -202,7 +202,7 @@
         <button
           (click)="resetForm()"
           type="button"
-          class="hover:animate-jump hover:animate-once animate-delay-300 animate-ease-in-out animate-alternate-reverse animate-fill-forwards text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-slate-600 dark:hover:bg-slate-700 dark:focus:ring-slate-800"
+          class="hover:animate-jump hover:animate-once animate-delay-300 animate-ease-in-out animate-alternate-reverse animate-fill-forwards text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm w-full sm:w-auto px-4 py-2.5 text-center dark:bg-slate-600 dark:hover:bg-slate-700 dark:focus:ring-slate-800"
         >
           Resetear
         </button>
@@ -249,7 +249,7 @@
       class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
     >
       <thead
-        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+        class="text-xs text-gray-100 uppercase bg-sky-900 border-b border-blue-400 dark:bg-gray-700 dark:text-gray-400"
       >
         <tr class="border-b">
           <!-- <th scope="col" class="p-4">
@@ -286,24 +286,6 @@
           </th>
           <th scope="col" class="px-6 py-3">
             <span>usuario</span>
-            <svg
-              (click)="sortFacturaFor()"
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-arrow-down-up"
-            >
-              <path d="m3 16 4 4 4-4" />
-              <path d="M7 20V4" />
-              <path d="m21 8-4-4-4 4" />
-              <path d="M17 4v16" />
-            </svg>
           </th>
           <th scope="col" class="px-6 py-3">precio final</th>
           <th scope="col" class="px-6 py-3">fecha</th>
@@ -313,8 +295,12 @@
       </thead>
       <tbody class="animate-fade-down">
         <tr
-          *ngFor="let factura of facturas"
-          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+          *ngFor="let factura of facturas; let i = index"
+          class="border-2"
+          [ngClass]="{
+            'bg-sky-700 text-white': i % 2 === 0,
+            'text-slate-700': i % 2 !== 0
+          }"
         >
           <!-- <td class="w-4 p-4">
           <div class="flex items-center">
@@ -328,21 +314,24 @@
         </td> -->
           <!-- <th
           scope="row"
-          class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
+          class="flex items-center px-4 py-1 text-gray-900 whitespace-nowrap dark:text-white"
         >
           <div class="ps-3">
             <div class="text-base font-semibold">{{ factura.id }}</div>
           </div>
         </th> -->
-          <td class="px-6 py-4">{{ factura.id }}</td>
-          <td class="px-6 py-4">{{ obtenerUsuario(factura.usuarioId) }}</td>
-          <td class="px-6 py-4">{{ factura.precio_final }}</td>
-          <td class="px-6 py-4">{{ factura.fecha_venta }}</td>
-          <td class="px-6 py-4">
+          <td class="px-4 py-1">{{ factura.id }}</td>
+          <td class="px-4 py-1">{{ obtenerUsuario(factura.usuarioId) }}</td>
+          <td class="px-4 py-1">{{ factura.precio_final }}</td>
+          <td class="px-4 py-1">{{ factura.fecha_venta }}</td>
+          <td class="px-4 py-1">
             <ul>
               <li
-                class="border p-2 w-auto bg-gray-100 dark:bg-gray-700 dark:border-gray-600 dark:text-white rounded-lg mb-2"
                 *ngFor="let detalle of factura.DetalleFactura; let i = index"
+                ngClass="{
+                'bg-sky-700 text-white': i % 2 === 0,
+                'text-slate-700': i % 2 !== 0
+              }"
               >
                 <p class="font-medium">
                   Producto:
@@ -366,7 +355,7 @@
             </ul>
           </td>
 
-          <td class="px-6 py-4 space-y-4">
+          <td class="flex space-x-2 w-auto py-12">
             <button
               (click)="onEdit(factura.id.toString())"
               class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

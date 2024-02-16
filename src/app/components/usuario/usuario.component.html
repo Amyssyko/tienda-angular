@@ -5,7 +5,7 @@
       (click)="resetForm(); onOpenModal()"
       data-modal-target="crud-modal"
       data-modal-toggle="crud-modal"
-      class="block justify-end text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      class="block justify-end text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       type="button"
     >
       Agregar Usuario
@@ -205,7 +205,7 @@
               <button
                 (click)="resetForm()"
                 type="button"
-                class="hover:animate-jump hover:animate-once animate-delay-300 animate-ease-in-out animate-alternate-reverse animate-fill-forwards text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-slate-600 dark:hover:bg-slate-700 dark:focus:ring-slate-800"
+                class="hover:animate-jump hover:animate-once animate-delay-300 animate-ease-in-out animate-alternate-reverse animate-fill-forwards text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm w-full sm:w-auto px-4 py-2.5 text-center dark:bg-slate-600 dark:hover:bg-slate-700 dark:focus:ring-slate-800"
               >
                 Resetear
               </button>
@@ -255,7 +255,7 @@
       class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
     >
       <thead
-        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+        class="text-xs text-gray-100 uppercase bg-sky-900 border-b border-blue-400 dark:bg-gray-700 dark:text-gray-400"
       >
         <tr class="border-b">
           <!-- <th scope="col" class="p-4">
@@ -303,8 +303,11 @@
       </thead>
       <tbody class="animate-fade-down">
         <tr
-          *ngFor="let usuario of usuarios"
-          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+          *ngFor="let usuario of usuarios; let i = index"
+          [ngClass]="{
+            'bg-sky-700 text-white': i % 2 === 0,
+            'text-slate-700': i % 2 !== 0
+          }"
         >
           <!-- <td class="w-4 p-4">
           <div class="flex items-center">
@@ -318,28 +321,28 @@
         </td> -->
           <!-- <th
           scope="row"
-          class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
+          class="flex items-center px-4 py-1 text-gray-900 whitespace-nowrap dark:text-white"
         >
           <div class="ps-3">
             <div class="text-base font-semibold">{{ usuario.id }}</div>
           </div>
         </th> -->
-          <td class="px-6 py-4">{{ usuario.nombre }}</td>
-          <td class="px-6 py-4">{{ usuario.apellido }}</td>
-          <td class="px-6 py-4">
+          <td class="px-4 py-1">{{ usuario.nombre }}</td>
+          <td class="px-4 py-1">{{ usuario.apellido }}</td>
+          <td class="px-4 py-1">
             <div class="flex items-center">
               {{ usuario.cedula }}
             </div>
           </td>
-          <td class="px-6 py-4">
+          <td class="px-4 py-1">
             {{ usuario.email }}
           </td>
-          <td class="px-6 py-4 uppercase">{{ usuario.rol }}</td>
-          <td class="px-6 py-4">
+          <td class="px-4 py-1 uppercase">{{ usuario.rol }}</td>
+          <td class="px-4 py-1">
             {{ usuario.telefono }}
           </td>
 
-          <td class="flex items-center px-6 py-4 gap-4">
+          <td class="flex items-center px-4 py-1 gap-4">
             <button
               (click)="onEdit(usuario.id.toString())"
               data-modal-target="default-modal"

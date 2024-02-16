@@ -23,9 +23,8 @@ export class UsuarioService {
   obtenerUsuarios(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(`${this.url}${this.endpoint}`).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 400) {
-          this.toast.showError(error.error);
-        }
+        this.toast.showError(error.error);
+
         return throwError('Algo salio mal');
       })
     );
@@ -34,9 +33,8 @@ export class UsuarioService {
   obtenerUsuario(id: string): Observable<Usuario> {
     return this.http.get<Usuario>(`${this.url}${this.endpoint}/${id}`).pipe(
       catchError((error: HttpErrorResponse) => {
-        // Aquí puedes manejar el error como desees, por ejemplo, mostrando un mensaje al usuario
-        if (error.error.error) {
-          this.toast.showError(error.error.error);
+        if (error.error) {
+          this.toast.showError(error.error);
         }
         return throwError('Algo salio mal');
       })
@@ -66,10 +64,10 @@ export class UsuarioService {
           }
           console.log(error.status);
           console.log(error.error);
-          if (error.error.error) {
-            this.toast.showError(error.error.error);
+          if (error.error) {
+            this.toast.showError(error.error);
           }
-          // Aquí puedes manejar el error como desees, por ejemplo, mostrando un mensaje al usuario
+
           return throwError('Algo salio mal');
         })
       );
@@ -78,9 +76,8 @@ export class UsuarioService {
   eliminarUsuario(id: string): Observable<Usuario> {
     return this.http.delete<Usuario>(`${this.url}${this.enpointId}${id}`).pipe(
       catchError((error: HttpErrorResponse) => {
-        // Aquí puedes manejar el error como desees, por ejemplo, mostrando un mensaje al usuario
-        if (error.error.error) {
-          this.toast.showError(error.error.error);
+        if (error.error) {
+          this.toast.showError(error.error);
         }
         return throwError('Algo salio mal');
       })

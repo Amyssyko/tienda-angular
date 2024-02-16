@@ -74,7 +74,7 @@ export class FacturaComponent implements OnInit {
 
   obtenerUsuario(id: string) {
     const usuario = this.usuarios.find((usuario) => usuario.id === id);
-    return usuario?.nombre;
+    return usuario?.nombre + ' ' + usuario?.apellido;
   }
 
   obtenerUsuarios() {

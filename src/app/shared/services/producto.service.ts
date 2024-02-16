@@ -29,8 +29,7 @@ export class ProductService {
       .get<Proveedor[]>(`${this.url}${this.endpoint_proveedor}`)
       .pipe(
         catchError((error: HttpErrorResponse) => {
-          // Aquí puedes manejar el error como desees, por ejemplo, mostrando un mensaje al usuario
-          this.toast.showError(error.error.error);
+          this.toast.showError(error.error);
           return throwError('Algo salio mal');
         })
       );
@@ -39,9 +38,8 @@ export class ProductService {
   obtenerProductos(): Observable<Producto[]> {
     return this.http.get<Producto[]>(`${this.url}${this.endpoint}`).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 400) {
-          this.toast.showError(error.error);
-        }
+        this.toast.showError(error.error);
+
         return throwError('Algo salio mal');
       })
     );
@@ -50,9 +48,8 @@ export class ProductService {
   obtenerProducto(id: string): Observable<Producto> {
     return this.http.get<Producto>(`${this.url}${this.enpointId}${id}`).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 400) {
-          this.toast.showError(error.error);
-        }
+        this.toast.showError(error.error);
+
         return throwError('Algo salio mal');
       })
     );
@@ -63,8 +60,7 @@ export class ProductService {
       .post<Producto>(`${this.url}${this.endpoint}`, stateProducto)
       .pipe(
         catchError((error: HttpErrorResponse) => {
-          // Aquí puedes manejar el error como desees, por ejemplo, mostrando un mensaje al usuario
-          this.toast.showError(error.error.error);
+          this.toast.showError(error.error);
           return throwError('Algo salio mal');
         })
       );
@@ -75,8 +71,7 @@ export class ProductService {
       .put<Producto>(`${this.url}${this.enpointId}${id}`, producto)
       .pipe(
         catchError((error: HttpErrorResponse) => {
-          // Aquí puedes manejar el error como desees, por ejemplo, mostrando un mensaje al usuario
-          this.toast.showError(error.error.error);
+          this.toast.showError(error.error);
           return throwError('Algo salio mal');
         })
       );
@@ -84,9 +79,8 @@ export class ProductService {
   eliminarProducto(id: string): Observable<Producto> {
     return this.http.delete<Producto>(`${this.url}${this.enpointId}${id}`).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 400) {
-          this.toast.showError(error.error);
-        }
+        this.toast.showError(error.error);
+
         return throwError('Algo salio mal');
       })
     );

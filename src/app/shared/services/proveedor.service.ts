@@ -24,9 +24,8 @@ export class ProveedorService {
   obtenerProveedores(): Observable<Proveedor[]> {
     return this.http.get<Proveedor[]>(`${this.url}${this.endpoint}`).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 400) {
-          this.toast.showError(error.error);
-        }
+        this.toast.showError(error.error);
+
         return throwError('Algo salio mal');
       })
     );
@@ -35,9 +34,8 @@ export class ProveedorService {
   obtenerProveedor(id: string): Observable<Proveedor> {
     return this.http.get<Proveedor>(`${this.url}${this.enpointId}${id}`).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 400) {
-          this.toast.showError(error.error);
-        }
+        this.toast.showError(error.error);
+
         return throwError('Algo salio mal');
       })
     );
@@ -52,7 +50,6 @@ export class ProveedorService {
             this.toast.showError(error.error);
           }
 
-          // Aquí puedes manejar el error como desees, por ejemplo, mostrando un mensaje al usuario
           return throwError(error.error);
         })
       );
@@ -66,8 +63,7 @@ export class ProveedorService {
       .put<Proveedor>(`${this.url}${this.enpointId}${id}`, proveedor)
       .pipe(
         catchError((error: HttpErrorResponse) => {
-          // Aquí puedes manejar el error como desees, por ejemplo, mostrando un mensaje al usuario
-          this.toast.showError(error.error.error);
+          this.toast.showError(error.error);
           return throwError('Algo salio mal');
         })
       );
@@ -77,8 +73,7 @@ export class ProveedorService {
       .delete<Proveedor>(`${this.url}${this.enpointId}${id}`)
       .pipe(
         catchError((error: HttpErrorResponse) => {
-          // Aquí puedes manejar el error como desees, por ejemplo, mostrando un mensaje al usuario
-          this.toast.showError(error.error.error);
+          this.toast.showError(error.error);
           return throwError('Algo salio mal');
         })
       );
