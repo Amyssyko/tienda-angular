@@ -1,0 +1,213 @@
+<style>
+  body {
+    padding: 20px;
+    background-color: #f8f9fa;
+  }
+
+  .container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-group label {
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  .form-control {
+    border-radius: 5px;
+    margin-bottom: 15px;
+  }
+
+  .form-check-label {
+    font-weight: normal;
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+</style>
+<style>
+  body {
+    padding: 20px;
+    background-color: #f8f9fa;
+  }
+
+  .container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-group label {
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  .form-control {
+    border-radius: 5px;
+    margin-bottom: 15px;
+  }
+
+  .form-check-label {
+    font-weight: normal;
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+</style>
+
+<div class="container">
+  <h2 class="mb-4"><i class="fas fa-truck"></i> Agregar Proveedor</h2>
+  <form (ngSubmit)="guardarFactura()">
+    <fieldset class="relative z-0 w-full mb-5 group">
+      <input
+        type="number"
+        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+        id="precio_final"
+        placeholder=""
+        required
+        [(ngModel)]="nuevaFactura.precio_final"
+        name="precio_final"
+      />
+      <label
+        for="precio_final"
+        class="peer-focus:font-medium left-2 absolute text-base text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
+        >Precio Total</label
+      >
+    </fieldset>
+
+    <fieldset class="relative z-0 w-full mb-5 group mt-4">
+      <div data-te-datepicker-init data-te-input-wrapper-init>
+        <input
+          formControlName="fecha_venta"
+          id="fecha_venta"
+          type="text"
+          class="peer block min-h-[auto] w-full rounded border-0 bg-transparent p-3 first-line:leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-gray-200 dark:placeholder:text-gray-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+          [(ngModel)]="nuevaFactura.fecha_venta"
+          placeholder=" "
+        />
+        <label
+          for="fecha_venta"
+          class="peer-focus:font-medium left-2 absolute text-base text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-9 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-10"
+          >Seleccione la fecha de compra</label
+        >
+      </div>
+    </fieldset>
+
+    <fieldset class="relative z-0 w-full mb-5 group">
+      <select
+        formControlName="usuarioId"
+        id="usuarioId"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 py-2.5 px-0 bg-transparent border-b-2 appearance-none focus:outline-none focus:ring-0 peer"
+      >
+        required >
+        <option value="" disabled selected hidden>Clientes</option>
+        <option
+          [(ngModel)]="nuevaFactura.usuarioId"
+          *ngFor="let usuario of usuarios"
+          [value]="usuario.id"
+        >
+          {{ usuario.nombre }}
+        </option>
+      </select>
+      <label
+        for="usuarioId"
+        class="peer-focus:font-medium left-2 absolute text-base text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-10"
+        >Clientes</label
+      >
+    </fieldset>
+    <div class="form-group">
+      <label for="usuarioId"
+        ><i class="bi bi-person"></i> ID del Usuario:</label
+      >
+      <input
+        type="text"
+        class="form-control"
+        id="usuarioId"
+        placeholder="Ingrese el ID del usuario"
+        required
+        [(ngModel)]="nuevaFactura.usuarioId"
+        name="usuarioId"
+      />
+    </div>
+
+    <div class="form-group">
+      <div *ngFor="let detalle of nuevaFactura.DetalleFactura; let i = index">
+        <label for="detalleFactura">Detalle de Factura:</label>
+        <div class="detalle-factura">
+          <fieldset class="relative z-0 w-full mb-5 group">
+            <label>Cantidad:</label>
+            <input
+              type="number"
+              id="cantidad_venta"
+              class="form-control"
+              placeholder="Cantidad"
+              required
+              [(ngModel)]="detalle.cantidad_venta"
+              name="detalle_cantidad_{{ i }}"
+            />
+          </fieldset>
+          <label for="cantidad_venta">Precio Unitario:</label>
+          <input
+            type="number"
+            id="precio_venta"
+            class="form-control"
+            placeholder="Precio unitario"
+            required
+            [(ngModel)]="detalle.precio_venta"
+            name="detalle_precio_{{ i }}"
+          />
+          <label for="precio_venta">Descuento:</label>
+          <input
+            type="number"
+            id="descuento_venta"
+            class="form-control"
+            placeholder="Descuento"
+            required
+            [(ngModel)]="detalle.descuento_venta"
+            name="detalle_descuento_{{ i }}"
+          />
+          <label for="descuento_venta">Id Producto:</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="ID del producto"
+            required
+            [(ngModel)]="detalle.productoId"
+            name="detalle_productoId_{{ i }}"
+          />
+        </div>
+      </div>
+      <button
+        type="button"
+        class="btn btn-success btn-sm"
+        (click)="agregarDetalleFactura()"
+      >
+        <i class="bi bi-plus"></i> Agregar Detalle
+      </button>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+      <i class="bi bi-save"></i> Guardar Factura
+    </button>
+  </form>
+</div>

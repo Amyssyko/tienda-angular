@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Modal, initFlowbite } from 'flowbite';
 import { ToastrService } from 'ngx-toastr';
-import { Producto, ProductoForm } from 'src/app/interfaces/producto.d';
-import { Proveedor } from 'src/app/interfaces/proveedor.d';
+import { Producto, ProductoForm } from 'src/app/interfaces/producto';
+import { Proveedor } from 'src/app/interfaces/proveedor';
 import { Filtro } from 'src/app/services/filter.service';
 import { Toast } from 'src/app/services/toaster.service';
 import { ProductService } from 'src/app/shared/services/producto.service';
+import { ProveedorService } from 'src/app/shared/services/proveedor.service';
 
 @Component({
   selector: 'app-producto',
@@ -23,6 +24,7 @@ export class ProductoComponent implements OnInit {
 
   constructor(
     private _productService: ProductService,
+    private _proveedorService: ProveedorService,
     private formBuilder: FormBuilder,
     private toastr: ToastrService
   ) {
@@ -49,7 +51,7 @@ export class ProductoComponent implements OnInit {
   }
 
   obtenerProveedores() {
-    this._productService.obtenerProveedores().subscribe((data) => {
+    this._proveedorService.obtenerProveedores().subscribe((data) => {
       this.proveedores = data;
     });
   }

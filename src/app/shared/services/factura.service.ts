@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, catchError, throwError } from 'rxjs';
-import { Factura, FacturaForm } from 'src/app/interfaces/factura.d';
+import { Factura, FacturaForm } from 'src/app/interfaces/factura';
 import { Toast } from 'src/app/services/toaster.service';
 import { environment } from 'src/environments/environment';
 

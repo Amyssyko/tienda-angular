@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 //componentes
 import { FacturaComponent } from './components/factura/factura.component';
 
+import { FormularioFacturaComponent } from './components/formulario-factura/formulario-factura.component';
 import { ProductoComponent } from './components/producto/producto.component';
 import { ProveedorComponent } from './components/proveedor/proveedor.component';
 import { UsuarioComponent } from './components/usuario/usuario.component';
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'proveedores', component: ProveedorComponent },
   { path: 'ventas', component: VentaComponent },
   { path: 'facturas', component: FacturaComponent },
-  { path: 'usuarios', component: UsuarioComponent },
+  { path: 'clientes', component: UsuarioComponent },
+  { path: 'facturacion', component: FormularioFacturaComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 

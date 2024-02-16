@@ -2,8 +2,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, catchError, throwError } from 'rxjs';
-import { Producto, ProductoForm } from 'src/app/interfaces/producto.d';
-import { Proveedor } from 'src/app/interfaces/proveedor.d';
+import { Producto, ProductoForm } from 'src/app/interfaces/producto';
+import { Proveedor } from 'src/app/interfaces/proveedor';
 import { Toast } from 'src/app/services/toaster.service';
 import { environment } from 'src/environments/environment';
 

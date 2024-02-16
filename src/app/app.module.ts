@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FacturaComponent } from './components/factura/factura.component';
+import { FormularioFacturaComponent } from './components/formulario-factura/formulario-factura.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProductoComponent } from './components/producto/producto.component';
 import { ProveedorComponent } from './components/proveedor/proveedor.component';
@@ -24,8 +25,10 @@ import { SharedModule } from './shared/shared.module';
     ProveedorComponent,
     FacturaComponent,
     VentaComponent,
+    FormularioFacturaComponent,
   ],
   imports: [
+    FormsModule,
     CommonModule,
     BrowserModule,
     AppRoutingModule,

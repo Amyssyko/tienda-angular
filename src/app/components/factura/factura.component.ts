@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Modal } from 'flowbite';
 import { ToastrService } from 'ngx-toastr';
-import { DetalleFacturaForm } from 'src/app/interfaces/detalle-factura';
-import { Factura, FacturaForm } from 'src/app/interfaces/factura.d';
-import { Producto } from 'src/app/interfaces/producto.d';
-import { Usuario } from 'src/app/interfaces/usuario.d';
+import { Factura, FacturaForm } from 'src/app/interfaces/factura';
+import { Producto } from 'src/app/interfaces/producto';
+import { Usuario } from 'src/app/interfaces/usuario';
 import { Filtro } from 'src/app/services/filter.service';
 import { Toast } from 'src/app/services/toaster.service';
 import { FacturaService } from 'src/app/shared/services/factura.service';
@@ -18,8 +15,7 @@ import { Datepicker, Input, initTE } from 'tw-elements';
   templateUrl: './factura.component.html',
 })
 export class FacturaComponent implements OnInit {
-  facturaForm!: FormGroup;
-  detalleFacturaForm!: FormGroup;
+  facturaForm: FacturaForm = new FacturaForm();
   facturaId: string = '';
   facturas: Factura[] = [];
   productos: Producto[] = [];
@@ -31,99 +27,35 @@ export class FacturaComponent implements OnInit {
     private _facturaService: FacturaService,
     private _productoService: ProductService,
     private _usuarioService: UsuarioService,
-    private formBuilder: FormBuilder,
     private toastr: ToastrService
   ) {
     {
-      this.detalleFacturaForm = this.formBuilder.group({
-        cantidad_venta: ['', Validators.required],
-        precio_venta: ['', Validators.required],
-        descuento_venta: ['', Validators.required],
-        productoId: ['', Validators.required],
-      });
       this.toast = new Toast(this.toastr); // Inicializa la instancia de Toast
       this.filtra = new Filtro<Factura>(); // Inicializa la instancia de Filtro
     }
   }
-  // [
-  // {
-  // "id": "3d36c7b7-997b-4b43-9e1e-7ff8c68e3180",
-  // "precio_final": 36.23,
-  // "usuarioId": "4d9a2691-d10a-4bf8-849d-df494750fcad",
-  // "fecha_venta": "2023-12-01T05:00:00.000Z",
-  // "DetalleFactura": [
-  // {
-  // "id": "1423b969-688f-4124-89a2-4ebd192b4b5a",
-  // "cantidad_venta": 24,
-  // "precio_venta": 36.12,
-  // "descuento_venta": 0,
-  // "facturacionId": "3d36c7b7-997b-4b43-9e1e-7ff8c68e3180",
-  // "productoId": "b6b0865c-5e42-46d3-944b-5973b17317a2"
-  // }
-  // ]
-  // },
-  // {
-  // "id": "35a86239-390d-40fa-9417-a93d91839916",
-  // "precio_final": 68,
-  // "usuarioId": "4d9a2691-d10a-4bf8-849d-df494750fcad",
-  // "fecha_venta": "2023-11-12T00:00:00.000Z",
-  // "DetalleFactura": [
-  // {
-  // "id": "9b0c4cbb-cfbd-4198-b8f1-e2bca098e59c",
-  // "cantidad_venta": 3,
-  // "precio_venta": 16,
-  // "descuento_venta": 0,
-  // "facturacionId": "35a86239-390d-40fa-9417-a93d91839916",
-  // "productoId": "df40a101-f601-4c92-9ebc-c24dba8f3d9e"
-  // },
-  // {
-  // "id": "50c52f0a-6222-46bf-8bc8-85404fd05e76",
-  // "cantidad_venta": 2,
-  // "precio_venta": 10,
-  // "descuento_venta": 0,
-  // "facturacionId": "35a86239-390d-40fa-9417-a93d91839916",
-  // "productoId": "b6b0865c-5e42-46d3-944b-5973b17317a2"
-  // }
-  // ]
-  // }]
-
-  obtenerDetalleFactura() {
-    return this.detalleFacturaForm.value as DetalleFacturaForm[] | null;
-  }
-
-  agregarDetalleFactura() {
-    const detalleFactura = this.formBuilder.group({
-      cantidad_venta: ['', Validators.required],
-      precio_venta: ['', Validators.required],
-      descuento_venta: ['', Validators.required],
-      productoId: ['', Validators.required],
+  agregarDetalleFactura(): void {
+    // Agregar un nuevo objeto DetalleFactura al array
+    this.facturaForm.DetalleFactura.push({
+      cantidad_venta: 0,
+      precio_venta: 0,
+      descuento_venta: 0,
+      productoId: '',
     });
+  }
+  eliminarDetalleFactura(index: number): void {
+    // Eliminar un objeto DetalleFactura del array
+    this.facturaForm.DetalleFactura = this.facturaForm.DetalleFactura.filter(
+      (_, i) => i !== index
+    );
   }
 
   ngOnInit(): void {
     initTE({ Datepicker, Input });
 
-    this.facturaForm = this.formBuilder.group({
-      precio_final: ['', Validators.required],
-      usuarioId: ['', [Validators.required]],
-      fecha_venta: ['', [Validators.required]],
-      DetalleFactura: [
-        this.formBuilder.group({
-          cantidad_venta: ['', [Validators.required]],
-          precio_venta: ['', [Validators.required]],
-          descuento_venta: ['', [Validators.required]],
-          productoId: ['', [Validators.required]],
-        }),
-      ],
-    });
-
     this.obtenerFacturas();
     this.obtenerProductos();
     this.obtenerUsuarios();
-  }
-
-  eliminarDetalleFactura(index: number) {
-    this.obtenerDetalleFactura()?.splice(index, 1);
   }
 
   obtenerProductos() {
@@ -134,6 +66,17 @@ export class FacturaComponent implements OnInit {
         console.error(error);
       };
   }
+
+  obtenerProducto(id: string) {
+    const producto = this.productos.find((producto) => producto.id === id);
+    return producto?.nombre;
+  }
+
+  obtenerUsuario(id: string) {
+    const usuario = this.usuarios.find((usuario) => usuario.id === id);
+    return usuario?.nombre;
+  }
+
   obtenerUsuarios() {
     this._usuarioService.obtenerUsuarios().subscribe((data) => {
       this.usuarios = data;
@@ -144,89 +87,33 @@ export class FacturaComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.facturaForm.valid) {
-      const factura: FacturaForm = {
-        precio_final: this.facturaForm.value.precio_final,
-        usuarioId: this.facturaForm.value.usuarioId,
-        fecha_venta: this.facturaForm.value.fecha_venta,
-        DetalleFactura: this.facturaForm.value.DetalleFactura.map(
-          (detalle: any) => {
-            return {
-              cantidad_venta: detalle.cantidad_venta,
-              precio_venta: detalle.precio_venta,
-              descuento_venta: detalle.descuento_venta,
-              productoId: detalle.productoId,
-            };
-          }
-        ),
-      };
-      console.log(factura);
-      if (this.facturaId !== '') {
-        this.actualizarFactura(this.facturaId, this.facturaForm.value);
-      } else {
-        this.crearFactura(factura);
-      }
-      this.onCloseModal();
+    const fecha_venta = new Date(this.facturaForm.fecha_venta);
+
+    const factura = { ...this.facturaForm, fecha_venta };
+
+    if (this.facturaId) {
+      this.actualizarFactura(this.facturaId, factura);
     } else {
-      this.toast.showWarning(
-        'Formulario inválido, algunos campos son inválidos o están vacíos'
-      ); // Llama al método showError de la instancia de Toast
+      this.crearFactura(factura);
     }
   }
 
   resetForm() {
-    this.facturaForm.reset();
+    this.facturaForm = new FacturaForm();
     this.facturaId = '';
   }
 
   onEdit(id: string) {
+    this.facturaId = id;
     this.resetForm();
-    this.onOpenModal();
     this.facturaId = id;
     this._facturaService.obtenerFactura(id).subscribe((data) => {
-      console.log(data);
-      this.facturaForm.setValue({
-        precio_final: data.precio_final,
-        usuarioId: data.usuarioId,
-        fecha_venta: data.fecha_venta,
-        DetalleFactura: data.DetalleFactura.map((detalle) => {
-          return {
-            cantidad_venta: detalle.cantidad_venta,
-            precio_venta: detalle.precio_venta,
-            descuento_venta: detalle.descuento_venta,
-            productoId: detalle.productoId,
-          };
-        }),
-      });
-
-      console.log(this.facturaForm.value);
+      const dataFormated = {
+        ...data,
+        fecha_venta: new Date(data.fecha_venta).toISOString().split('T')[0],
+      };
+      this.facturaForm = dataFormated;
     });
-  }
-
-  onCloseModal() {
-    const $modal = document.getElementById('crud-modal');
-    // options with default values
-
-    const modal = new Modal($modal);
-
-    // show the modal
-    modal.hide();
-
-    // hide the modal
-    // modal.hide();
-  }
-
-  onOpenModal() {
-    const $modal = document.getElementById('crud-modal');
-    // options with default values
-
-    const modal = new Modal($modal);
-
-    // show the modal
-    modal.show();
-
-    // hide the modal
-    // modal.hide();
   }
 
   //create sortProducts Name
@@ -236,13 +123,14 @@ export class FacturaComponent implements OnInit {
 
   obtenerFacturas() {
     this._facturaService.obtenerFacturas().subscribe((data) => {
-      this.facturas = data.map((item) => {
+      this.facturas = data.map((factura) => {
         return {
-          ...item,
-          fecha_creado: new Date(item.fecha_venta).toLocaleDateString('es-ES', {
+          ...factura,
+          fecha_venta: new Date(factura.fecha_venta).toLocaleString('ec-ES', {
+            hour12: false,
             year: 'numeric',
-            month: 'long',
-            day: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
             hour: '2-digit',
             minute: '2-digit',
             second: '2-digit',

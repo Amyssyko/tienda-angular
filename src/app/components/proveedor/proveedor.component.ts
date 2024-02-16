@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Modal, initFlowbite } from 'flowbite';
 import { ToastrService } from 'ngx-toastr';
-import { Proveedor, ProveedorForm } from 'src/app/interfaces/proveedor.d';
+import { Proveedor, ProveedorForm } from 'src/app/interfaces/proveedor';
 import { Filtro } from 'src/app/services/filter.service';
 import { Toast } from 'src/app/services/toaster.service';
 import { ProveedorService } from 'src/app/shared/services/proveedor.service';
