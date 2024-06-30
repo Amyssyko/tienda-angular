@@ -35,7 +35,7 @@ export class ProveedorService {
     return this.http.get<Proveedor>(`${this.url}${this.enpointId}${id}`).pipe(
       catchError((error: HttpErrorResponse) => {
         this.toast.showError(error.error);
-
+     
         return throwError('Algo salio mal');
       })
     );

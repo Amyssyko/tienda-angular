@@ -1,0 +1,59 @@
+<div class="mx-auto p-4 w-full max-w-md max-h-full">
+
+    <div class="md:max-w-sm mx-auto rounded-xl bg-card text-card-foreground shadow w-auto p-6">
+        <form [formGroup]="productoForm" (ngSubmit)="onSubmit()">
+            <div class="relative z-0 w-full mb-5 group">
+                <input type="text" formControlName="nombre" id="nombre"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" " required />
+                <label for="nombre"
+                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-7 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7">Nombre
+                    Producto</label>
+            </div>
+            <div class="relative z-0 w-full mb-5 group">
+                <input type="number" formControlName="stock" id="stock"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" " required />
+                <label for="stock"
+                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-7 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7">Stock</label>
+            </div>
+            <div class="relative z-0 w-full mb-5 group">
+                <input type="number" formControlName="precio" id="precio"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder="" step="0.01" min="0.01" required />
+                <label for="precio"
+                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-7 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7">Precio</label>
+
+            </div>
+
+            <div class="relative z-0 w-full mb-5 group">
+                <select formControlName="proveedorId" id="proveedorId"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    required>
+                    <option value="" disabled selected hidden>Proveedor</option>
+                    <option *ngFor="let proveedor of proveedores" [value]="proveedor.id">
+                        {{ proveedor.nombre }}
+                    </option>
+                </select>
+                <label for="proveedorId"
+                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-7 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7">Proveedor</label>
+            </div>
+            <div class="flex flex-col justify-center items-center gap-y-2">
+                <button *ngIf="productoId" type="submit"
+                    class="hover:animate-jump hover:animate-once animate-delay-300 animate-ease-in-out animate-alternate-reverse animate-fill-forwards text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-4 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:green-blue-800">
+                    Actualizar
+                </button>
+
+                <button *ngIf="!productoId" type="submit"
+                    class="hover:animate-jump hover:animate-once animate-delay-300 animate-ease-in-out animate-alternate-reverse animate-fill-forwards text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-7 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Enviar
+                </button>
+
+                <button (click)="resetForm()" type="button"
+                    class="hover:animate-jump hover:animate-once animate-delay-300 animate-ease-in-out animate-alternate-reverse animate-fill-forwards text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm w-full sm:w-auto px-4 py-2.5 text-center dark:bg-slate-600 dark:hover:bg-slate-700 dark:focus:ring-slate-800">
+                    Resetear
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

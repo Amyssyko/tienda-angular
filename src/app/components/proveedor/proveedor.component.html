@@ -1,147 +1,80 @@
 <div class="max-w-screen-2xl mx-auto py-8">
   <!-- Modal toggle -->
   <div class="grid justify-items-end">
-    <button
-      (click)="resetForm(); onOpenModal()"
-      data-modal-target="crud-modal"
-      data-modal-toggle="crud-modal"
+    <button (click)="resetForm(); onOpenModal()" data-modal-target="crud-modal" data-modal-toggle="crud-modal"
       class="block justify-end text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-      type="button"
-    >
-      Agregar Proveedor
+      type="button">
+      Agregar
     </button>
   </div>
 
   <!-- Main modal -->
-  <div
-    id="crud-modal"
-    tabindex="-1"
-    aria-hidden="true"
-    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
-  >
+  <div id="crud-modal" tabindex="-1" aria-hidden="true"
+    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-md max-h-full">
       <!-- Modal content -->
       <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
         <!-- Modal header -->
-        <div
-          class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600"
-        >
+        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
           <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
             Formulario Proveedor
           </h3>
-          <button
-            (click)="onCloseModal()"
-            type="button"
+          <button (click)="onCloseModal()" type="button"
             class="text-gray-400 bg-transparent hover:bg-slate-200 border hover:border-slate-300 hover:text-red-600 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-            data-modal-toggle="crud-modal"
-          >
-            <svg
-              class="w-3 h-3"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 14 14"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-              />
+            data-modal-toggle="crud-modal">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
             </svg>
             <span class="sr-only">Close modal</span>
           </button>
         </div>
         <!-- Modal body -->
 
-        <div
-          class="md:max-w-sm mx-auto rounded-xl border bg-card text-card-foreground shadow w-auto p-4"
-        >
+        <div class="md:max-w-sm mx-auto rounded-xl border bg-card text-card-foreground shadow w-auto p-4">
           <form [formGroup]="proveedorForm" (ngSubmit)="onSubmit()">
             <fieldset class="relative z-0 w-full mb-5 group">
-              <input
-                type="text"
-                formControlName="ruc"
-                id="ruc"
+              <input type="text" formControlName="ruc" id="ruc"
                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" "
-                required
-              />
-              <label
-                for="ruc"
-                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-7 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
-                >RUC</label
-              >
+                placeholder=" " required />
+              <label for="ruc"
+                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-7 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7">RUC</label>
             </fieldset>
             <fieldset class="relative z-0 w-full mb-5 group">
-              <input
-                type="text"
-                formControlName="nombre"
-                id="nombre"
+              <input type="text" formControlName="nombre" id="nombre"
                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" "
-                required
-              />
-              <label
-                for="nombre"
-                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-7 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
-                >Nombre</label
-              >
+                placeholder=" " required />
+              <label for="nombre"
+                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-7 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7">Nombre</label>
             </fieldset>
             <fieldset class="relative z-0 w-full mb-5 group">
-              <input
-                type="text"
-                formControlName="direccion"
-                id="direccion"
+              <input type="text" formControlName="direccion" id="direccion"
                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" "
-                required
-              />
-              <label
-                for="direccion"
-                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-7 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
-                >Dirección</label
-              >
+                placeholder=" " required />
+              <label for="direccion"
+                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-7 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7">Dirección</label>
             </fieldset>
             <fieldset class="relative z-0 w-full mb-5 group">
-              <input
-                type="tel"
-                formControlName="telefono"
-                id="telefono"
+              <input type="tel" formControlName="telefono" id="telefono"
                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=""
-                required
-              />
-              <label
-                for="telefono"
-                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-7 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
-                >Teléfono</label
-              >
+                placeholder="" required />
+              <label for="telefono"
+                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-7 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7">Teléfono</label>
             </fieldset>
 
             <div class="flex flex-col justify-center items-center gap-y-2">
-              <button
-                *ngIf="proveedorId"
-                type="submit"
-                class="hover:animate-jump hover:animate-once animate-delay-300 animate-ease-in-out animate-alternate-reverse animate-fill-forwards text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-4 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:green-blue-800"
-              >
+              <button *ngIf="proveedorId" type="submit"
+                class="hover:animate-jump hover:animate-once animate-delay-300 animate-ease-in-out animate-alternate-reverse animate-fill-forwards text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-4 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:green-blue-800">
                 Actualizar
               </button>
 
-              <button
-                *ngIf="!proveedorId"
-                type="submit"
-                class="hover:animate-jump hover:animate-once animate-delay-300 animate-ease-in-out animate-alternate-reverse animate-fill-forwards text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-7 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
+              <button *ngIf="!proveedorId" type="submit"
+                class="hover:animate-jump hover:animate-once animate-delay-300 animate-ease-in-out animate-alternate-reverse animate-fill-forwards text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-7 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 Enviar
               </button>
 
-              <button
-                (click)="resetForm()"
-                type="button"
-                class="hover:animate-jump hover:animate-once animate-delay-300 animate-ease-in-out animate-alternate-reverse animate-fill-forwards text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm w-full sm:w-auto px-4 py-2.5 text-center dark:bg-slate-600 dark:hover:bg-slate-700 dark:focus:ring-slate-800"
-              >
+              <button (click)="resetForm()" type="button"
+                class="hover:animate-jump hover:animate-once animate-delay-300 animate-ease-in-out animate-alternate-reverse animate-fill-forwards text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm w-full sm:w-auto px-4 py-2.5 text-center dark:bg-slate-600 dark:hover:bg-slate-700 dark:focus:ring-slate-800">
                 Resetear
               </button>
             </div>
@@ -186,12 +119,9 @@
   <br />
   <div class="relative overflow-x-auto border">
     <h1 class="text-center font-bold py-4 border-b">Lista de Proveedores</h1>
-    <table
-      class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-    >
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
       <thead
-        class="text-xs text-gray-100 uppercase bg-sky-900 border-b border-blue-400 dark:bg-gray-700 dark:text-gray-400"
-      >
+        class="text-xs text-gray-100 uppercase bg-sky-900 border-b border-blue-400 dark:bg-gray-700 dark:text-gray-400">
         <tr class="border-b">
           <!-- <th scope="col" class="p-4">
           <div class="flex items-center">
@@ -206,19 +136,9 @@
           <!-- <th scope="col" class="px-6 py-3">ID</th> -->
           <th scope="col" class="px-6 py-3 flex space-x-2">
             <span>ruc</span>
-            <svg
-              (click)="sortProveedorFor()"
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-arrow-down-up"
-            >
+            <svg (click)="sortProveedorFor()" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" class="lucide lucide-arrow-down-up">
               <path d="m3 16 4 4 4-4" />
               <path d="M7 20V4" />
               <path d="m21 8-4-4-4 4" />
@@ -234,13 +154,10 @@
         </tr>
       </thead>
       <tbody class="animate-fade-down">
-        <tr
-          *ngFor="let proveedor of proveedores; let i = index"
-          [ngClass]="{
+        <tr *ngFor="let proveedor of proveedores; let i = index" [ngClass]="{
             'bg-sky-700 text-white': i % 2 === 0,
             'text-slate-700': i % 2 !== 0
-          }"
-        >
+          }">
           <!-- <td class="w-4 p-4">
           <div class="flex items-center">
             <input
@@ -269,20 +186,15 @@
           </td>
 
           <td class="flex items-center px-4 py-1 gap-4">
-            <button
-              (click)="onEdit(proveedor.id.toString())"
-              data-modal-target="default-modal"
+            <button (click)="onEdit(proveedor.id.toString())" data-modal-target="default-modal"
               data-modal-toggle="default-modal"
               class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              type="button"
-            >
+              type="button">
               Editar
             </button>
 
-            <button
-              (click)="eliminarProveedor(proveedor.id.toString())"
-              class="block text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-            >
+            <button (click)="eliminarProveedor(proveedor.id.toString())"
+              class="block text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
               Eliminar
             </button>
           </td>

@@ -35,7 +35,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(private _usuarioService: UsuarioService) {}
   ngOnInit(): void {
-    this.obtenerUsuario('4d9a2691-d10a-4bf8-849d-df494750fcad');
+    this.obtenerUsuario('6980b44d-560d-4328-9773-7d478d4c5fe9');
   }
 
   obtenerUsuario(id: string) {

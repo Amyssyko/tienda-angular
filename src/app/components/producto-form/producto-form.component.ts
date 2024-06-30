@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Producto, ProductoForm } from 'src/app/interfaces/producto';
 import { Proveedor } from 'src/app/interfaces/proveedor';
@@ -9,19 +10,22 @@ import { ProductService } from 'src/app/shared/services/producto.service';
 import { ProveedorService } from 'src/app/shared/services/proveedor.service';
 
 @Component({
-  selector: 'app-producto',
-  templateUrl: './producto.component.html',
+  selector: 'app-producto-form',
+  templateUrl: './producto-form.component.html',
 })
-export class ProductoComponent implements OnInit {
+export class ProductoFormComponent {
   proveedor: string = 'bc253462-c2b3-4266-8541-d627de7e232c';
   productoForm!: FormGroup;
   proveedorId: string = '';
-  productos: Producto[] = [];
+  producto: Producto = {} as Producto;
+  productoId: string = '';
   proveedores: Proveedor[] = [];
   toast: Toast; // Declara una variable para la instancia de Toast
   filtra!: Filtro<Producto>;
 
+  
   constructor(
+    private route: ActivatedRoute,
     private _productService: ProductService,
     private _proveedorService: ProveedorService,
     private formBuilder: FormBuilder,
@@ -33,28 +37,35 @@ export class ProductoComponent implements OnInit {
     }
   }
   ngOnInit(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+
+   
+    if (id && id !== 'add') {
+      this.productoId = id;
+      this.obtenerProductoId(id);
+    }
+
     this.productoForm = this.formBuilder.group({
       nombre: ['', Validators.required],
-      stock: ['', [Validators.required, Validators.min(0)]],
+      stock: ['', [Validators.required, Validators.min(0),Validators.pattern("^[0-9]*$")]],
       precio: ['', [Validators.required, Validators.min(0)]],
       proveedorId: ['', Validators.required],
     });
-    this.obtenerProductos();
     this.obtenerProveedores();
   }
 
-  //create sortProducts Name
-  sortProductsName() {
-    this.filtra.filtrarPorPropiedad(this.productos, 'nombre');
+  obtenerProductoId(id: string) { 
+    this._productService.obtenerProducto(id).subscribe((data) => {
+      this.productoForm.setValue({
+        nombre: data.nombre,
+        stock: data.stock,
+        precio: data.precio,
+        proveedorId: data.proveedorId,
+      });
+    });
   }
 
-  routeCreate() { 
-    window.location.href = '/producto/add';
-  }
 
-  routeUpdate(id: string) { 
-    window.location.href = `/producto/${id}`;
-  }
 
   obtenerProveedores() {
     this._proveedorService.obtenerProveedores().subscribe((data) => {
@@ -70,8 +81,8 @@ export class ProductoComponent implements OnInit {
         proveedorId: this.productoForm.value.proveedorId,
       };
 
-      if (this.proveedorId !== '') {
-        this.actualizarProducto(this.proveedorId, this.productoForm.value);
+      if (this.productoId !== '') {
+        this.actualizarProducto(this.productoId, this.productoForm.value);
       } else {
         this.crearProducto(producto);
       }
@@ -86,6 +97,9 @@ export class ProductoComponent implements OnInit {
     this.productoForm.reset();
     this.proveedorId = '';
   }
+
+
+
 
 
   onEdit(id: string) {
@@ -107,6 +121,8 @@ export class ProductoComponent implements OnInit {
         this.resetForm();
         this.obtenerProductos();
         this.toast.showUpdate('Producto actualizado con éxito'); // Llama al método showSuccess de la instancia de Toast
+        //redirectTo('/productos');
+        window.location.href = '/productos';
       }
     }),
       (error: any) => {
@@ -121,6 +137,8 @@ export class ProductoComponent implements OnInit {
         this.resetForm();
         this.obtenerProductos();
         this.toast.showSuccess('Producto creado con éxito'); // Llama al método showUpdate de la instancia de Toast
+        window.location.href = '/productos';
+
       }
     }),
       (error: any) => {
@@ -149,32 +167,8 @@ export class ProductoComponent implements OnInit {
         (item) => item.proveedorId === this.proveedor
       );
 
-      this.productos = newData.map((item) => {
-        return {
-          ...item,
-          fecha_creado: new Date(item.fecha_creado).toLocaleDateString(
-            'es-ES',
-            {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-              hour: '2-digit',
-              minute: '2-digit',
-              second: '2-digit',
-            }
-          ),
-          fecha_modificacion: item.fecha_modificacion
-            ? new Date(item.fecha_modificacion).toLocaleDateString('es-ES', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-              })
-            : null,
-        };
-      });
+     
+      
     }),
       (error: any) => {
         console.error(error);

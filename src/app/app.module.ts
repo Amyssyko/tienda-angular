@@ -15,6 +15,7 @@ import { ProveedorComponent } from './components/proveedor/proveedor.component';
 import { UsuarioComponent } from './components/usuario/usuario.component';
 import { VentaComponent } from './components/venta/venta.component';
 import { SharedModule } from './shared/shared.module';
+import { ProductoFormComponent } from './components/producto-form/producto-form.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { SharedModule } from './shared/shared.module';
     FacturaComponent,
     VentaComponent,
     FormularioFacturaComponent,
+    ProductoFormComponent,
   ],
   imports: [
     FormsModule,

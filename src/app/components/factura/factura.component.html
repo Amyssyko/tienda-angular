@@ -3,172 +3,90 @@
     Formulario Factura
   </h3>
 
-  <div
-    class="mx-auto rounded-xl bg-card text-card-foreground shadow w-auto p-4"
-  >
+  <div class="mx-auto rounded-xl bg-card text-card-foreground shadow w-auto p-4">
     <form (ngSubmit)="onSubmit()">
-      <section
-        class="md:max-w-md mx-auto border px-4 pt-8 rounded-xl grid justify-items-center"
-      >
+      <section class="md:max-w-md mx-auto border px-4 pt-8 rounded-xl grid justify-items-center">
         <fieldset class="relative z-0 w-full mb-5 group">
-          <select
-            id="usuarioId"
-            name="usuarioId"
-            [(ngModel)]="facturaForm.usuarioId"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 py-2.5 px-0 bg-transparent border-b-2 appearance-none focus:outline-none focus:ring-0 peer"
-          >
+          <select id="usuarioId" name="usuarioId" [(ngModel)]="facturaForm.usuarioId"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 py-2.5 px-0 bg-transparent border-b-2 appearance-none focus:outline-none focus:ring-0 peer">
             required >
             <option value="" disabled selected hidden>Clientes</option>
-            <option
-              id="usuarioId"
-              *ngFor="let usuario of usuarios"
-              [value]="usuario.id"
-            >
+            <option id="usuarioId" *ngFor="let usuario of usuarios" [value]="usuario.id">
               {{ usuario.nombre }}
             </option>
           </select>
-          <label
-            for="usuarioId"
-            class="peer-focus:font-medium left-2 absolute text-base text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-10"
-            >Clientes</label
-          >
+          <label for="usuarioId"
+            class="peer-focus:font-medium left-2 absolute text-base text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-10">Clientes</label>
         </fieldset>
         <fieldset class="relative z-0 w-full mb-5 group">
-          <input
-            type="number"
-            [(ngModel)]="facturaForm.precio_final"
-            id="precio_final"
-            name="precio_final"
+          <input type="number" [(ngModel)]="facturaForm.precio_final" id="precio_final" name="precio_final"
             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-            placeholder=" "
-            min="0"
-            step="0.01"
-            required
-          />
-          <label
-            for="precio_final"
-            class="peer-focus:font-medium left-2 absolute text-base text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
-            >Precio Total</label
-          >
+            placeholder=" " min="0" step="0.01" required />
+          <label for="precio_final"
+            class="peer-focus:font-medium left-2 absolute text-base text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7">Precio
+            Total</label>
         </fieldset>
 
         <!-- TW Elements is free under AGPL, with commercial license required for specific uses. See more details: https://tw-elements.com/license/ and contact us for queries at tailwind@mdbootstrap.com -->
         <fieldset class="relative z-0 w-full mb-5 group mt-4">
           <div data-te-datepicker-init data-te-input-wrapper-init>
-            <input
-              [(ngModel)]="facturaForm.fecha_venta"
-              id="fecha_venta"
-              name="fecha_venta"
-              type="text"
+            <input [(ngModel)]="facturaForm.fecha_venta" id="fecha_venta" required name="fecha_venta" type="datetime"
               class="peer block min-h-[auto] w-full rounded border-0 bg-transparent p-3 first-line:leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-gray-200 dark:placeholder:text-gray-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-              placeholder=" "
-            />
-            <label
-              for="fecha_venta"
-              class="peer-focus:font-medium left-2 absolute text-base text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-9 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-10"
-              >Seleccione la fecha de compra</label
-            >
+              placeholder=" " />
+            <label for="fecha_venta"
+              class="peer-focus:font-medium left-2 absolute text-base text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-9 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-10">Seleccione
+              la fecha de compra</label>
           </div>
         </fieldset>
       </section>
 
       <br />
 
-      <section
-        *ngFor="let detalle of facturaForm.DetalleFactura; let i = index"
-        class="border px-4 rounded-xl"
-      >
+      <section *ngFor="let detalle of facturaForm.DetalleFactura; let i = index" class="border px-4 rounded-xl">
         <h2 class="mb-4 text-center font-medium">
           Detalle Factura {{ i + 1 }}
         </h2>
 
         <div class="grid grid-cols-5 gap-10 justify-items-center">
           <fieldset class="relative z-0 w-full mb-5 group">
-            <select
-              required
-              [(ngModel)]="detalle.productoId"
-              name="productoId"
-              id="productoId"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 py-2.5 px-0 bg-transparent border-b-2 appearance-none focus:outline-none focus:ring-0 peer"
-            >
+            <select required [(ngModel)]="detalle.productoId" name="productoId" id="productoId"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 py-2.5 px-0 bg-transparent border-b-2 appearance-none focus:outline-none focus:ring-0 peer">
               <option value="" disabled selected hidden>Productos</option>
-              <option
-                id="productoId"
-                *ngFor="let producto of productos"
-                [value]="producto.id"
-              >
+              <option id="productoId" *ngFor="let producto of productos" [value]="producto.id">
                 {{ producto.nombre }}
               </option>
             </select>
-            <label
-              for="usuarioId"
-              class="peer-focus:font-medium left-2 absolute text-base text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-10"
-              >Productos</label
-            >
+            <label for="usuarioId"
+              class="peer-focus:font-medium left-2 absolute text-base text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-10">Productos</label>
           </fieldset>
           <fieldset class="relative z-0 w-full mb-5 group">
-            <input
-              type="number"
-              [(ngModel)]="detalle.precio_venta"
-              id="precio_venta"
-              name="precio_venta"
+            <input type="number" [(ngModel)]="detalle.precio_venta" id="precio_venta" name="precio_venta"
               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-              min="0"
-              step="0.01"
-              required
-            />
-            <label
-              for="precio_venta"
-              class="peer-focus:font-medium left-2 absolute text-base text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
-              >Precio Producto</label
-            >
+              placeholder=" " min="0" step="0.01" required />
+            <label for="precio_venta"
+              class="peer-focus:font-medium left-2 absolute text-base text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7">Precio
+              Producto</label>
           </fieldset>
           <fieldset class="relative z-0 w-full mb-5 group">
-            <input
-              type="number"
-              [(ngModel)]="detalle.cantidad_venta"
-              id="cantidad_venta"
-              name="cantidad_venta"
+            <input type="number" [(ngModel)]="detalle.cantidad_venta" id="cantidad_venta" name="cantidad_venta"
               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-              min="0"
-              step="0.01"
-              required
-            />
-            <label
-              for="cantidad_venta"
-              class="peer-focus:font-medium left-2 absolute text-base text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
-              >Cantidad</label
-            >
+              placeholder=" " min="0" step="0.01" required />
+            <label for="cantidad_venta"
+              class="peer-focus:font-medium left-2 absolute text-base text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7">Cantidad</label>
           </fieldset>
 
           <fieldset class="relative z-0 w-full mb-5 group">
-            <input
-              type="number"
-              [(ngModel)]="detalle.descuento_venta"
-              id="descuento_venta"
-              name="descuento_venta"
+            <input type="number" [(ngModel)]="detalle.descuento_venta" id="descuento_venta" name="descuento_venta"
               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-              min="0"
-              step="1"
-              required
-            />
-            <label
-              for="descuento_venta"
-              class="peer-focus:font-medium left-2 absolute text-base text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7"
-              >Descuento</label
-            >
+              placeholder=" " min="0" step="1" required />
+            <label for="descuento_venta"
+              class="peer-focus:font-medium left-2 absolute text-base text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-7">Descuento</label>
           </fieldset>
 
           <div>
-            <button
-              (click)="eliminarDetalleFactura(i)"
-              type="button"
+            <button (click)="eliminarDetalleFactura(i)" type="button"
               class="hover:animate-jump hover:animate-once animate-delay-300 animate-ease-in-out animate-alternate-reverse animate-fill-forwards text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-4 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:green-blue-800"
-              (click)="agregarDetalleFactura()"
-            >
+              (click)="agregarDetalleFactura()">
               Eliminar Detalle
             </button>
           </div>
@@ -176,34 +94,23 @@
       </section>
 
       <div class="flex flex-col justify-center items-center gap-y-2">
-        <button
-          type="button"
+        <button type="button"
           class="hover:animate-jump hover:animate-once animate-delay-300 animate-ease-in-out animate-alternate-reverse animate-fill-forwards text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-4 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:green-blue-800"
-          (click)="agregarDetalleFactura()"
-        >
+          (click)="agregarDetalleFactura()">
           Agregar Detalle
         </button>
-        <button
-          *ngIf="facturaId"
-          type="submit"
-          class="hover:animate-jump hover:animate-once animate-delay-300 animate-ease-in-out animate-alternate-reverse animate-fill-forwards text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-4 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:green-blue-800"
-        >
+        <button *ngIf="facturaId" type="submit"
+          class="hover:animate-jump hover:animate-once animate-delay-300 animate-ease-in-out animate-alternate-reverse animate-fill-forwards text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-4 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:green-blue-800">
           Actualizar
         </button>
 
-        <button
-          *ngIf="!facturaId"
-          type="submit"
-          class="hover:animate-jump hover:animate-once animate-delay-300 animate-ease-in-out animate-alternate-reverse animate-fill-forwards text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-7 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
+        <button *ngIf="!facturaId" type="submit"
+          class="hover:animate-jump hover:animate-once animate-delay-300 animate-ease-in-out animate-alternate-reverse animate-fill-forwards text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-7 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
           Enviar
         </button>
 
-        <button
-          (click)="resetForm()"
-          type="button"
-          class="hover:animate-jump hover:animate-once animate-delay-300 animate-ease-in-out animate-alternate-reverse animate-fill-forwards text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm w-full sm:w-auto px-4 py-2.5 text-center dark:bg-slate-600 dark:hover:bg-slate-700 dark:focus:ring-slate-800"
-        >
+        <button (click)="resetForm()" type="button"
+          class="hover:animate-jump hover:animate-once animate-delay-300 animate-ease-in-out animate-alternate-reverse animate-fill-forwards text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm w-full sm:w-auto px-4 py-2.5 text-center dark:bg-slate-600 dark:hover:bg-slate-700 dark:focus:ring-slate-800">
           Resetear
         </button>
       </div>
@@ -245,12 +152,9 @@
   <br />
   <div class="relative overflow-x-auto border">
     <h1 class="text-center font-bold py-4 border-b">Lista de Proveedores</h1>
-    <table
-      class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-    >
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
       <thead
-        class="text-xs text-gray-100 uppercase bg-sky-900 border-b border-blue-400 dark:bg-gray-700 dark:text-gray-400"
-      >
+        class="text-xs text-gray-100 uppercase bg-sky-900 border-b border-blue-400 dark:bg-gray-700 dark:text-gray-400">
         <tr class="border-b">
           <!-- <th scope="col" class="p-4">
           <div class="flex items-center">
@@ -265,19 +169,9 @@
           <!-- <th scope="col" class="px-6 py-3">ID</th> -->
           <th scope="col" class="px-6 py-3 flex space-x-2">
             <span>factura</span>
-            <svg
-              (click)="sortFacturaFor()"
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-arrow-down-up"
-            >
+            <svg (click)="sortFacturaFor()" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" class="lucide lucide-arrow-down-up">
               <path d="m3 16 4 4 4-4" />
               <path d="M7 20V4" />
               <path d="m21 8-4-4-4 4" />
@@ -294,14 +188,10 @@
         </tr>
       </thead>
       <tbody class="animate-fade-down">
-        <tr
-          *ngFor="let factura of facturas; let i = index"
-          class="border-2"
-          [ngClass]="{
+        <tr *ngFor="let factura of facturas; let i = index" class="border-2" [ngClass]="{
             'bg-sky-700 text-white': i % 2 === 0,
             'text-slate-700': i % 2 !== 0
-          }"
-        >
+          }">
           <!-- <td class="w-4 p-4">
           <div class="flex items-center">
             <input
@@ -326,18 +216,14 @@
           <td class="px-4 py-1">{{ factura.fecha_venta }}</td>
           <td class="px-4 py-1">
             <ul>
-              <li
-                *ngFor="let detalle of factura.DetalleFactura; let i = index"
-                ngClass="{
+              <li *ngFor="let detalle of factura.DetalleFactura; let i = index" ngClass="{
                 'bg-sky-700 text-white': i % 2 === 0,
                 'text-slate-700': i % 2 !== 0
-              }"
-              >
+              }">
                 <p class="font-medium">
                   Producto:
                   <span class="font-normal">
-                    {{ obtenerProducto(detalle.productoId) }}</span
-                  >
+                    {{ obtenerProducto(detalle.productoId) }}</span>
                 </p>
                 <p class="font-medium">
                   Precio:
@@ -356,18 +242,14 @@
           </td>
 
           <td class="flex space-x-2 w-auto py-12">
-            <button
-              (click)="onEdit(factura.id.toString())"
+            <button (click)="onEdit(factura.id.toString())"
               class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              type="button"
-            >
+              type="button">
               Editar
             </button>
 
-            <button
-              (click)="eliminarFactura(factura.id.toString())"
-              class="block text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-            >
+            <button (click)="eliminarFactura(factura.id.toString())"
+              class="block text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
               Eliminar
             </button>
           </td>

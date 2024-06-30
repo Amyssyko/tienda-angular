@@ -17,6 +17,7 @@ import { Datepicker, Input, initTE } from 'tw-elements';
 export class FacturaComponent implements OnInit {
   facturaForm: FacturaForm = new FacturaForm();
   facturaId: string = '';
+  fecha= new Date();
   facturas: Factura[] = [];
   productos: Producto[] = [];
   usuarios: Usuario[] = [];
@@ -91,6 +92,11 @@ export class FacturaComponent implements OnInit {
 
     const factura = { ...this.facturaForm, fecha_venta };
 
+    console.log(factura);
+    if (!factura.DetalleFactura.length) {
+      return this.toast.showError('Asegúrese de agregar los detalles de la factura');
+    }
+
     if (this.facturaId) {
       this.actualizarFactura(this.facturaId, factura);
     } else {
@@ -131,9 +137,6 @@ export class FacturaComponent implements OnInit {
             year: 'numeric',
             month: '2-digit',
             day: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
           }),
         };
       });

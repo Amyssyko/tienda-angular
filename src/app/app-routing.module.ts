@@ -9,6 +9,7 @@ import { ProductoComponent } from './components/producto/producto.component';
 import { ProveedorComponent } from './components/proveedor/proveedor.component';
 import { UsuarioComponent } from './components/usuario/usuario.component';
 import { VentaComponent } from './components/venta/venta.component';
+import { ProductoFormComponent } from './components/producto-form/producto-form.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
@@ -18,7 +19,10 @@ const routes: Routes = [
   { path: 'facturas', component: FacturaComponent },
   { path: 'clientes', component: UsuarioComponent },
   { path: 'facturacion', component: FormularioFacturaComponent },
-  { path: '**', redirectTo: '', pathMatch: 'full' },
+  { path: 'producto/:id', component: ProductoFormComponent, children:[
+    { path: '', redirectTo:'default', pathMatch: 'full' },
+    { path: 'id', component: ProductoFormComponent },
+  ]},
 ];
 
 @NgModule({

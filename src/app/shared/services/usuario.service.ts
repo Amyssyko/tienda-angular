@@ -33,6 +33,8 @@ export class UsuarioService {
   obtenerUsuario(id: string): Observable<Usuario> {
     return this.http.get<Usuario>(`${this.url}${this.endpoint}/${id}`).pipe(
       catchError((error: HttpErrorResponse) => {
+        console.log(error)
+
         if (error.error) {
           this.toast.showError(error.error);
         }
