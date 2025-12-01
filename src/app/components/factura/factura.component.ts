@@ -10,8 +10,7 @@ import { Toast } from 'src/app/services/toaster.service';
 import { FacturaService } from 'src/app/shared/services/factura.service';
 import { ProductService } from 'src/app/shared/services/producto.service';
 import { UsuarioService } from 'src/app/shared/services/usuario.service';
-// tw-elements usage removed temporarily to avoid incompatible exports with the installed package.
-
+// tw-elements initialization is centralized in AppComponent
 @Component({
   selector: 'app-factura',
   templateUrl: './factura.component.html',
@@ -56,7 +55,7 @@ export class FacturaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // initTE({ Datepicker, Input }); // removed during migration
+    // Inicialización de UI centralizada en AppComponent
 
     this.obtenerFacturas();
     this.obtenerProductos();

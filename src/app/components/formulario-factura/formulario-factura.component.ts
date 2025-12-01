@@ -5,7 +5,7 @@ import { FacturaForm } from 'src/app/interfaces/factura';
 import { Usuario } from 'src/app/interfaces/usuario';
 import { FacturaService } from 'src/app/shared/services/factura.service';
 import { UsuarioService } from 'src/app/shared/services/usuario.service';
-// tw-elements usage removed temporarily to avoid incompatible exports with the installed package.
+// tw-elements initialization is centralized in AppComponent
 
 @Component({
   selector: 'app-formulario-factura',
@@ -22,7 +22,7 @@ export class FormularioFacturaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // initTE({ Datepicker, Input }); // removed during migration
+    // Inicialización de UI centralizada en AppComponent
     this.obtenerUsuarios();
   }
   guardarFactura(): void {

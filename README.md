@@ -48,6 +48,40 @@ Puntos importantes tras la migración a Angular 21:
 
 - `tailwind.config.js` incluye los paths de contenido y los plugins (por ejemplo `flowbite` / `tw-elements`) — si encuentras errores en tiempo de ejecución relacionados con `tw-elements`, revisa su versión o coméntalo temporalmente del `plugins` en `tailwind.config.js`.
 
+  Recomendación específica para `tw-elements` en este proyecto:
+
+  - Asegúrate de que `tailwind.config.js` incluya la ruta correcta hacia los scripts de `tw-elements` en `content`, por ejemplo:
+
+    ```js
+    content: ["./src/**/*.{html,ts}", "./node_modules/tw-elements/js/**/*.js"];
+    ```
+
+  - Y usa el plugin `plugin.cjs` desde la raíz del paquete:
+
+    ```js
+    plugins: [require("tw-elements/plugin.cjs")];
+    ```
+
+  (Estos ajustes ya están aplicados en la configuración del repo.)
+
+  - tw-elements (runtime): la librería ahora se inicializa en los componentes que la usan mediante la función exportada `initTWE`.
+    Ejemplo (ya aplicado en componentes de facturación):
+
+    ```ts
+    import { initTWE, Input } from "tw-elements";
+
+    // en ngOnInit
+    try {
+      initTWE({ Input });
+    } catch (e) {
+      console.warn("tw-elements init failed:", e);
+    }
+    ```
+
+    Nota: la versión incluida en este proyecto (tw-elements v2) expone `initTWE` y un conjunto de componentes (Input, Button, Dropdown, etc.). Algunas APIs antiguas como `initTE({ Datepicker })` no existen en esa versión — si dependes de componentes específicos (por ejemplo un datepicker) revisa la documentación o considera usar una librería alternativa.
+
+    En este repositorio la aplicación mostrará una advertencia en la consola en tiempo de ejecución si detecta atributos `data-te-datepicker-init` en las plantillas para ayudarte a localizar el uso de datepicker y decidir si quieres sustituirlo por otra librería (por ejemplo `flatpickr` o `pikaday`).
+
 - Si en algún momento se aplicaron parches manuales dentro de `node_modules` para sortear errores, elimina `node_modules` y reinstala dependencias para dejar todo reproducible:
 
 ```pwsh
@@ -70,5 +104,3 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 ---
-
-Si quieres, puedo documentar pasos adicionales (cómo preparar un entorno con una versión LTS de Node, o cómo actualizar/sustituir `tw-elements`).
