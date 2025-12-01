@@ -58,10 +58,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "proyecto2:build:production"
+              "buildTarget": "proyecto2:build:production"
             },
             "development": {
-              "browserTarget": "proyecto2:build:development"
+              "buildTarget": "proyecto2:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -88,6 +88,7 @@
       }
     }
   },
+  "defaultProject": "proyecto2",
   "cli": {
     "packageManager": "pnpm",
     "analytics": "15e9d884-7f4e-4418-b76c-b3ba92bdab0a"
