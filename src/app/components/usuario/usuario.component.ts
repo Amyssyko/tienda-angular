@@ -1,5 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Modal, initFlowbite } from 'flowbite';
 import { ToastrService } from 'ngx-toastr';
 import { Usuario, UsuarioForm } from 'src/app/interfaces/usuario';
@@ -10,6 +16,8 @@ import { UsuarioService } from 'src/app/shared/services/usuario.service';
 @Component({
   selector: 'app-usuario',
   templateUrl: './usuario.component.html',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
 })
 export class UsuarioComponent implements OnInit {
   usuarioForm!: FormGroup;

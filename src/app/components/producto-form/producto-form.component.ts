@@ -1,5 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Producto, ProductoForm } from 'src/app/interfaces/producto';
@@ -12,6 +18,8 @@ import { ProveedorService } from 'src/app/shared/services/proveedor.service';
 @Component({
   selector: 'app-producto-form',
   templateUrl: './producto-form.component.html',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
 })
 export class ProductoFormComponent {
   proveedor: string = 'bc253462-c2b3-4266-8541-d627de7e232c';
@@ -23,7 +31,6 @@ export class ProductoFormComponent {
   toast: Toast; // Declara una variable para la instancia de Toast
   filtra!: Filtro<Producto>;
 
-  
   constructor(
     private route: ActivatedRoute,
     private _productService: ProductService,
@@ -39,7 +46,6 @@ export class ProductoFormComponent {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
 
-   
     if (id && id !== 'add') {
       this.productoId = id;
       this.obtenerProductoId(id);
@@ -47,14 +53,21 @@ export class ProductoFormComponent {
 
     this.productoForm = this.formBuilder.group({
       nombre: ['', Validators.required],
-      stock: ['', [Validators.required, Validators.min(0),Validators.pattern("^[0-9]*$")]],
+      stock: [
+        '',
+        [
+          Validators.required,
+          Validators.min(0),
+          Validators.pattern('^[0-9]*$'),
+        ],
+      ],
       precio: ['', [Validators.required, Validators.min(0)]],
       proveedorId: ['', Validators.required],
     });
     this.obtenerProveedores();
   }
 
-  obtenerProductoId(id: string) { 
+  obtenerProductoId(id: string) {
     this._productService.obtenerProducto(id).subscribe((data) => {
       this.productoForm.setValue({
         nombre: data.nombre,
@@ -64,8 +77,6 @@ export class ProductoFormComponent {
       });
     });
   }
-
-
 
   obtenerProveedores() {
     this._proveedorService.obtenerProveedores().subscribe((data) => {
@@ -97,10 +108,6 @@ export class ProductoFormComponent {
     this.productoForm.reset();
     this.proveedorId = '';
   }
-
-
-
-
 
   onEdit(id: string) {
     this.resetForm();
@@ -138,7 +145,6 @@ export class ProductoFormComponent {
         this.obtenerProductos();
         this.toast.showSuccess('Producto creado con éxito'); // Llama al método showUpdate de la instancia de Toast
         window.location.href = '/productos';
-
       }
     }),
       (error: any) => {
@@ -166,9 +172,6 @@ export class ProductoFormComponent {
       const newData = data.filter(
         (item) => item.proveedorId === this.proveedor
       );
-
-     
-      
     }),
       (error: any) => {
         console.error(error);

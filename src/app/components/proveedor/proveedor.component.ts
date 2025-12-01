@@ -1,5 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Modal, initFlowbite } from 'flowbite';
 import { ToastrService } from 'ngx-toastr';
 import { Proveedor, ProveedorForm } from 'src/app/interfaces/proveedor';
@@ -10,6 +16,8 @@ import { ProveedorService } from 'src/app/shared/services/proveedor.service';
 @Component({
   selector: 'app-proveedor',
   templateUrl: './proveedor.component.html',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
 })
 export class ProveedorComponent implements OnInit {
   proveedorForm!: FormGroup;

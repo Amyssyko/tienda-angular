@@ -1,4 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Factura, FacturaForm } from 'src/app/interfaces/factura';
 import { Producto } from 'src/app/interfaces/producto';
@@ -8,16 +10,18 @@ import { Toast } from 'src/app/services/toaster.service';
 import { FacturaService } from 'src/app/shared/services/factura.service';
 import { ProductService } from 'src/app/shared/services/producto.service';
 import { UsuarioService } from 'src/app/shared/services/usuario.service';
-import { Datepicker, Input, initTE } from 'tw-elements';
+// tw-elements usage removed temporarily to avoid incompatible exports with the installed package.
 
 @Component({
   selector: 'app-factura',
   templateUrl: './factura.component.html',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
 })
 export class FacturaComponent implements OnInit {
   facturaForm: FacturaForm = new FacturaForm();
   facturaId: string = '';
-  fecha= new Date();
+  fecha = new Date();
   facturas: Factura[] = [];
   productos: Producto[] = [];
   usuarios: Usuario[] = [];
@@ -52,7 +56,7 @@ export class FacturaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    initTE({ Datepicker, Input });
+    // initTE({ Datepicker, Input }); // removed during migration
 
     this.obtenerFacturas();
     this.obtenerProductos();
@@ -94,7 +98,9 @@ export class FacturaComponent implements OnInit {
 
     console.log(factura);
     if (!factura.DetalleFactura.length) {
-      return this.toast.showError('Asegúrese de agregar los detalles de la factura');
+      return this.toast.showError(
+        'Asegúrese de agregar los detalles de la factura'
+      );
     }
 
     if (this.facturaId) {

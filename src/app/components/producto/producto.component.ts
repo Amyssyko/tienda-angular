@@ -1,5 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Producto, ProductoForm } from 'src/app/interfaces/producto';
 import { Proveedor } from 'src/app/interfaces/proveedor';
@@ -11,6 +17,8 @@ import { ProveedorService } from 'src/app/shared/services/proveedor.service';
 @Component({
   selector: 'app-producto',
   templateUrl: './producto.component.html',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
 })
 export class ProductoComponent implements OnInit {
   proveedor: string = 'bc253462-c2b3-4266-8541-d627de7e232c';
@@ -48,11 +56,11 @@ export class ProductoComponent implements OnInit {
     this.filtra.filtrarPorPropiedad(this.productos, 'nombre');
   }
 
-  routeCreate() { 
+  routeCreate() {
     window.location.href = '/producto/add';
   }
 
-  routeUpdate(id: string) { 
+  routeUpdate(id: string) {
     window.location.href = `/producto/${id}`;
   }
 
@@ -86,7 +94,6 @@ export class ProductoComponent implements OnInit {
     this.productoForm.reset();
     this.proveedorId = '';
   }
-
 
   onEdit(id: string) {
     this.resetForm();

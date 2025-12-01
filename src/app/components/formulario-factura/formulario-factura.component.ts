@@ -1,13 +1,17 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FacturaForm } from 'src/app/interfaces/factura';
 import { Usuario } from 'src/app/interfaces/usuario';
 import { FacturaService } from 'src/app/shared/services/factura.service';
 import { UsuarioService } from 'src/app/shared/services/usuario.service';
-import { Datepicker, Input, initTE } from 'tw-elements';
+// tw-elements usage removed temporarily to avoid incompatible exports with the installed package.
 
 @Component({
   selector: 'app-formulario-factura',
   templateUrl: './formulario-factura.component.html',
+  standalone: true,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
 })
 export class FormularioFacturaComponent implements OnInit {
   nuevaFactura: FacturaForm = new FacturaForm(); // Utiliza el constructor del modelo para inicializar la factura
@@ -18,7 +22,7 @@ export class FormularioFacturaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    initTE({ Datepicker, Input });
+    // initTE({ Datepicker, Input }); // removed during migration
     this.obtenerUsuarios();
   }
   guardarFactura(): void {

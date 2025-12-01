@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from 'src/app/interfaces/usuario';
 import { UsuarioService } from 'src/app/shared/services/usuario.service';
@@ -5,6 +6,8 @@ import { UsuarioService } from 'src/app/shared/services/usuario.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
+  standalone: true,
+  imports: [CommonModule],
 })
 export class NavbarComponent implements OnInit {
   usuario: Usuario = new Usuario();

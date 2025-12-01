@@ -10,15 +10,26 @@ import { AppComponent } from './app.component';
 import { FacturaComponent } from './components/factura/factura.component';
 import { FormularioFacturaComponent } from './components/formulario-factura/formulario-factura.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { ProductoFormComponent } from './components/producto-form/producto-form.component';
 import { ProductoComponent } from './components/producto/producto.component';
 import { ProveedorComponent } from './components/proveedor/proveedor.component';
 import { UsuarioComponent } from './components/usuario/usuario.component';
 import { VentaComponent } from './components/venta/venta.component';
 import { SharedModule } from './shared/shared.module';
-import { ProductoFormComponent } from './components/producto-form/producto-form.component';
 
 @NgModule({
-  declarations: [
+  declarations: [],
+  imports: [
+    // Angular modules
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    CommonModule,
+    SharedModule,
+    // Standalone components (import instead of declaring)
     AppComponent,
     NavbarComponent,
     ProductoComponent,
@@ -28,17 +39,7 @@ import { ProductoFormComponent } from './components/producto-form/producto-form.
     VentaComponent,
     FormularioFacturaComponent,
     ProductoFormComponent,
-  ],
-  imports: [
-    FormsModule,
-    CommonModule,
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    SharedModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    ReactiveFormsModule,
+    // Third-party
     ToastrModule.forRoot({
       closeButton: true,
       preventDuplicates: true,
@@ -48,9 +49,8 @@ import { ProductoFormComponent } from './components/producto-form/producto-form.
       progressAnimation: 'decreasing',
       resetTimeoutOnDuplicate: true,
       easeTime: 100,
-    }), // ToastrModule added
+    }),
   ],
-
   providers: [],
   bootstrap: [AppComponent],
 })
