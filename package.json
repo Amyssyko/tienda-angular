@@ -35,6 +35,8 @@
     "@angular/compiler-cli": "^15.2.10",
     "@types/cors": "^2.8.19",
     "@types/jasmine": "~4.3.6",
+    "autoprefixer": "^10.4.17",
+    "jasmine-core": "~4.5.0",
     "autoprefixer": "^10.4.22",
     "jasmine-core": "~4.6.1",
     "karma": "~6.4.4",
