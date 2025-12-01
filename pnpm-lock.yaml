@@ -79,8 +79,8 @@ importers:
         specifier: ^10.4.17
         version: 10.4.17(postcss@8.4.39)
       jasmine-core:
-        specifier: ~4.5.0
-        version: 4.5.0
+        specifier: ~4.6.1
+        version: 4.6.1
       karma:
         specifier: ~6.4.0
         version: 6.4.2
@@ -95,7 +95,7 @@ importers:
         version: 5.1.0(karma@6.4.2)
       karma-jasmine-html-reporter:
         specifier: ~2.0.0
-        version: 2.0.0(jasmine-core@4.5.0)(karma-jasmine@5.1.0(karma@6.4.2))(karma@6.4.2)
+        version: 2.0.0(jasmine-core@4.6.1)(karma-jasmine@5.1.0(karma@6.4.2))(karma@6.4.2)
       postcss:
         specifier: ^8.4.39
         version: 8.4.39
@@ -1464,6 +1464,7 @@ packages:
 
   acorn-import-assertions@1.9.0:
     resolution: {integrity: sha512-cmMwop9x+8KFhxvKrKfPYmN6/pKTYYHBqLa0DfvVZcKMJWNyWLnaqND7dx/qn66R7ewM1UX5XMaDVP5wlVTaVA==}
+    deprecated: package has been renamed to acorn-import-attributes
     peerDependencies:
       acorn: ^8
 
@@ -2296,6 +2297,7 @@ packages:
 
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
@@ -2459,6 +2461,7 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.3:
     resolution: {integrity: sha512-x00IRNXNy63jwGkJmzPigoySHbaqpNuzKbBOmzK+g2OdZpQ9w+sxCN+VSB3ja7IAge2OP2qpfxTjeNcyjmW1uw==}
@@ -2591,8 +2594,8 @@ packages:
     resolution: {integrity: sha512-N3yCS/NegsOBokc8GAdM8UcmfsKiSS8cipheD/nivzr700H+nsMOxJjQnvwOcRYVuFkdH0wGUvW2WbXGmrZGbQ==}
     engines: {node: '>=14'}
 
-  jasmine-core@4.5.0:
-    resolution: {integrity: sha512-9PMzyvhtocxb3aXJVOPqBDswdgyAeSB81QnLop4npOpbqnheaTEwPc9ZloQeVswugPManznQBjD8kWDTjlnHuw==}
+  jasmine-core@4.6.1:
+    resolution: {integrity: sha512-VYz/BjjmC3klLJlLwA4Kw8ytk0zDSmbbDLNs794VnWmkcCB7I9aAL/D48VNQtmITyPvea2C3jdUMfc3kAoy0PQ==}
 
   jest-worker@27.5.1:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
@@ -3468,6 +3471,7 @@ packages:
 
   rimraf@3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
+    deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
 
   run-async@2.4.1:
@@ -7466,7 +7470,7 @@ snapshots:
     optionalDependencies:
       '@pkgjs/parseargs': 0.11.0
 
-  jasmine-core@4.5.0: {}
+  jasmine-core@4.6.1: {}
 
   jest-worker@27.5.1:
     dependencies:
@@ -7520,15 +7524,15 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  karma-jasmine-html-reporter@2.0.0(jasmine-core@4.5.0)(karma-jasmine@5.1.0(karma@6.4.2))(karma@6.4.2):
+  karma-jasmine-html-reporter@2.0.0(jasmine-core@4.6.1)(karma-jasmine@5.1.0(karma@6.4.2))(karma@6.4.2):
     dependencies:
-      jasmine-core: 4.5.0
+      jasmine-core: 4.6.1
       karma: 6.4.2
       karma-jasmine: 5.1.0(karma@6.4.2)
 
   karma-jasmine@5.1.0(karma@6.4.2):
     dependencies:
-      jasmine-core: 4.5.0
+      jasmine-core: 4.6.1
       karma: 6.4.2
 
   karma-source-map-support@1.4.0:
