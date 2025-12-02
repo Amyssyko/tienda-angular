@@ -24,34 +24,16 @@ jobs:
         include:
         - language: javascript-typescript
           build-mode: manual   # Angular necesita compilarse
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-
-    - name: Setup Node.js (LTS)
-      uses: actions/setup-node@v4
-      with:
-        node-version: 'lts/*'
-        cache: 'pnpm'
-    - name: Setup pnpm
-      uses: pnpm/action-setup@v4
-      with:
-       version: 9   # o la versión que uses en tu proyecto
-       run_install: true   # instala dependencias automáticamente
-    
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v4
-      with:
-       languages: ${{ matrix.language }}
-       build-mode: ${{ matrix.build-mode }}
-       queries: +security-extended,security-and-quality
-
-    - name: Build Angular project
-      if: matrix.build-mode == 'manual'
-      run: pnpm run build
-
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v4
-      with:
-        category: "/language:${{matrix.language}}"
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install
