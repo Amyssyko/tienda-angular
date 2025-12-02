@@ -122,80 +122,88 @@ export class ProveedorComponent implements OnInit {
   }
 
   obtenerProveedores() {
-    this._proveedorService.obtenerProveedores().subscribe((data) => {
-      this.proveedores = data.map((item) => {
-        return {
-          ...item,
-          fecha_creado: new Date(item.fecha_creado).toLocaleDateString(
-            'es-ES',
-            {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-              hour: '2-digit',
-              minute: '2-digit',
-              second: '2-digit',
-            }
-          ),
-          fecha_modificacion: item.fecha_modificacion
-            ? new Date(item.fecha_modificacion).toLocaleDateString('es-ES', {
+    this._proveedorService.obtenerProveedores().subscribe(
+      (data) => {
+        this.proveedores = data.map((item) => {
+          return {
+            ...item,
+            fecha_creado: new Date(item.fecha_creado).toLocaleDateString(
+              'es-ES',
+              {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric',
                 hour: '2-digit',
                 minute: '2-digit',
                 second: '2-digit',
-              })
-            : null,
-        };
-      });
-    }),
+              }
+            ),
+            fecha_modificacion: item.fecha_modificacion
+              ? new Date(item.fecha_modificacion).toLocaleDateString('es-ES', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  second: '2-digit',
+                })
+              : null,
+          };
+        });
+      },
       (error: any) => {
         console.error(error);
-      };
+      }
+    );
   }
 
   actualizarProveedor(id: string, producto: ProveedorForm) {
     this._proveedorService
       .actualizarProveedor(id, producto)
-      .subscribe((data) => {
-        if (data) {
-          this.resetForm();
-          this.obtenerProveedores();
-          this.toast.showUpdate('Proveedor actualizado con éxito'); // Llama al método showSuccess de la instancia de Toast
+      .subscribe(
+        (data) => {
+          if (data) {
+            this.resetForm();
+            this.obtenerProveedores();
+            this.toast.showUpdate('Proveedor actualizado con éxito'); // Llama al método showSuccess de la instancia de Toast
+          }
+        },
+        (error: any) => {
+          console.log('error');
+          console.error(error);
         }
-      }),
-      (error: any) => {
-        console.log('error');
-        console.error(error);
-      };
+      );
   }
 
   crearProveedor(producto: ProveedorForm) {
-    this._proveedorService.crearProveedor(producto).subscribe((data) => {
-      if (data) {
-        this.resetForm();
-        this.obtenerProveedores();
-        this.toast.showSuccess('Proveedor creado con éxito'); // Llama al método showUpdate de la instancia de Toast
-      }
-    }),
+    this._proveedorService.crearProveedor(producto).subscribe(
+      (data) => {
+        if (data) {
+          this.resetForm();
+          this.obtenerProveedores();
+          this.toast.showSuccess('Proveedor creado con éxito'); // Llama al método showUpdate de la instancia de Toast
+        }
+      },
       (error: any) => {
         console.log('error');
         console.error(error);
-      };
+      }
+    );
   }
 
   eliminarProveedor(id: string) {
-    this._proveedorService.eliminarProveedor(id).subscribe((data) => {
-      if (data === null) {
-        this.resetForm();
-        this.obtenerProveedores();
-        this.toast.showDelete('Proveedor eliminado con éxito'); // Llama al método showDelete de la instancia de Toast
-      }
-    }),
+    this._proveedorService.eliminarProveedor(id).subscribe(
+      (data) => {
+        if (data === null) {
+          this.resetForm();
+          this.obtenerProveedores();
+          this.toast.showDelete('Proveedor eliminado con éxito'); // Llama al método showDelete de la instancia de Toast
+        }
+      },
       (error: any) => {
         console.log('error');
         console.error(error);
-      };
+      }
+    );
   }
 }
