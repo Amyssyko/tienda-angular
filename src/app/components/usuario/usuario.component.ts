@@ -90,46 +90,54 @@ export class UsuarioComponent implements OnInit {
   }
 
   obtenerUsuarios() {
-    this._usuarioService.obtenerUsuarios().subscribe((data) => {
-      this.usuarios = data;
-    }),
+    this._usuarioService.obtenerUsuarios().subscribe(
+      (data) => {
+        this.usuarios = data;
+      },
       (error: any) => {
         console.error(error);
-      };
+      }
+    );
   }
 
   crearUsuario(usuario: UsuarioForm) {
-    this._usuarioService.crearUsuario(usuario).subscribe((data) => {
-      this.resetForm();
-      this.obtenerUsuarios();
-      this.toast.showSuccess('Usuario'); // Llama al método showSuccess de la instancia de Toast
-    }),
+    this._usuarioService.crearUsuario(usuario).subscribe(
+      (data) => {
+        this.resetForm();
+        this.obtenerUsuarios();
+        this.toast.showSuccess('Usuario'); // Llama al método showSuccess de la instancia de Toast
+      },
       (error: any) => {
         console.log('error');
         console.error(error);
-      };
+      }
+    );
   }
 
   actualizarUsuario(id: string, usuario: UsuarioForm) {
-    this._usuarioService.actualizarUsuario(id, usuario).subscribe((data) => {
-      this.resetForm();
-      this.obtenerUsuarios();
-      this.toast.showUpdate('Usuario actualizado con éxito '); // Llama al método showUpdate de la instancia de Toast
-    }),
+    this._usuarioService.actualizarUsuario(id, usuario).subscribe(
+      (data) => {
+        this.resetForm();
+        this.obtenerUsuarios();
+        this.toast.showUpdate('Usuario actualizado con éxito '); // Llama al método showUpdate de la instancia de Toast
+      },
       (error: any) => {
         console.error(error);
-      };
+      }
+    );
   }
 
   eliminarUsuario(id: string) {
-    this._usuarioService.eliminarUsuario(id).subscribe((data) => {
-      this.resetForm();
-      this.obtenerUsuarios();
-      this.toast.showDelete('Usuario eliminado con éxito'); // Llama al método showDelete de la instancia de Toast
-    }),
+    this._usuarioService.eliminarUsuario(id).subscribe(
+      (data) => {
+        this.resetForm();
+        this.obtenerUsuarios();
+        this.toast.showDelete('Usuario eliminado con éxito'); // Llama al método showDelete de la instancia de Toast
+      },
       (error: any) => {
         console.error(error);
-      };
+      }
+    );
   }
 
   onEdit(id: string) {
