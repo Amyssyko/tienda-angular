@@ -11,22 +11,11 @@ on:
 jobs:
   analyze:
     runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - language: javascript-typescript
-            build-mode: none
-
     steps:
       - uses: actions/checkout@v4
 
       - name: Setup Node.js (LTS)
-        uses: actions/setup-node@v6.1.0
+        uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
           cache: 'pnpm'
@@ -34,7 +23,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9
+          version: 10
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -42,11 +31,11 @@ jobs:
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v4
         with:
-          languages: ${{ matrix.language }}
-          build-mode: ${{ matrix.build-mode }}
+          languages: javascript-typescript
+          build-mode: none
           queries: +security-extended,security-and-quality
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v4
         with:
-          category: "/language:${{matrix.language}}"
+          category: "/language:javascript-typescript"
