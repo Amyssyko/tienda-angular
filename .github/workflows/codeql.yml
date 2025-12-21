@@ -19,6 +19,8 @@ jobs:
         with:
           node-version: 'lts/*'
           cache: 'pnpm'
+      - run: npm install -g pnpm@latest-10  
+      - run: pnpm install --frozen-lockfile
 
       - name: Setup pnpm (latest)
         uses: pnpm/action-setup@v4
