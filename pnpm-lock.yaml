@@ -33,8 +33,8 @@ importers:
         specifier: ^21.0.1
         version: 21.0.1(@angular/animations@21.0.1(@angular/core@21.0.1(@angular/compiler@21.0.2)(rxjs@7.8.2)(zone.js@0.16.0)))(@angular/common@21.0.1(@angular/core@21.0.1(@angular/compiler@21.0.2)(rxjs@7.8.2)(zone.js@0.16.0))(rxjs@7.8.2))(@angular/core@21.0.1(@angular/compiler@21.0.2)(rxjs@7.8.2)(zone.js@0.16.0))
       '@angular/platform-browser-dynamic':
-        specifier: ^21.0.1
-        version: 21.0.1(@angular/common@21.0.1(@angular/core@21.0.1(@angular/compiler@21.0.2)(rxjs@7.8.2)(zone.js@0.16.0))(rxjs@7.8.2))(@angular/compiler@21.0.2)(@angular/core@21.0.1(@angular/compiler@21.0.2)(rxjs@7.8.2)(zone.js@0.16.0))(@angular/platform-browser@21.0.1(@angular/animations@21.0.1(@angular/core@21.0.1(@angular/compiler@21.0.2)(rxjs@7.8.2)(zone.js@0.16.0)))(@angular/common@21.0.1(@angular/core@21.0.1(@angular/compiler@21.0.2)(rxjs@7.8.2)(zone.js@0.16.0))(rxjs@7.8.2))(@angular/core@21.0.1(@angular/compiler@21.0.2)(rxjs@7.8.2)(zone.js@0.16.0)))
+        specifier: ^21.0.3
+        version: 21.0.3(@angular/common@21.0.1(@angular/core@21.0.1(@angular/compiler@21.0.2)(rxjs@7.8.2)(zone.js@0.16.0))(rxjs@7.8.2))(@angular/compiler@21.0.2)(@angular/core@21.0.1(@angular/compiler@21.0.2)(rxjs@7.8.2)(zone.js@0.16.0))(@angular/platform-browser@21.0.1(@angular/animations@21.0.1(@angular/core@21.0.1(@angular/compiler@21.0.2)(rxjs@7.8.2)(zone.js@0.16.0)))(@angular/common@21.0.1(@angular/core@21.0.1(@angular/compiler@21.0.2)(rxjs@7.8.2)(zone.js@0.16.0))(rxjs@7.8.2))(@angular/core@21.0.1(@angular/compiler@21.0.2)(rxjs@7.8.2)(zone.js@0.16.0)))
       '@angular/router':
         specifier: ^21.0.1
         version: 21.0.1(@angular/common@21.0.1(@angular/core@21.0.1(@angular/compiler@21.0.2)(rxjs@7.8.2)(zone.js@0.16.0))(rxjs@7.8.2))(@angular/core@21.0.1(@angular/compiler@21.0.2)(rxjs@7.8.2)(zone.js@0.16.0))(@angular/platform-browser@21.0.1(@angular/animations@21.0.1(@angular/core@21.0.1(@angular/compiler@21.0.2)(rxjs@7.8.2)(zone.js@0.16.0)))(@angular/common@21.0.1(@angular/core@21.0.1(@angular/compiler@21.0.2)(rxjs@7.8.2)(zone.js@0.16.0))(rxjs@7.8.2))(@angular/core@21.0.1(@angular/compiler@21.0.2)(rxjs@7.8.2)(zone.js@0.16.0)))(rxjs@7.8.2)
@@ -381,14 +381,14 @@ packages:
       '@angular/platform-browser': ^21.0.0 || ^22.0.0
       rxjs: ^6.5.3 || ^7.4.0
 
-  '@angular/platform-browser-dynamic@21.0.1':
-    resolution: {integrity: sha512-TzCKf3p1NBK1NYoPJXLScSjVeiQ52DaXf9gweNUGtCmX3EkVKf1sx4Ny1x4DxaTwB5XZn+O+L3nVLstPBj7UGA==}
+  '@angular/platform-browser-dynamic@21.0.3':
+    resolution: {integrity: sha512-ln/bcWdIPukRQ0gV5xhxEeR4q+hrjL2+z2/4JJySPPngtFqhFkS9+c2jiwBLWPN3mFA1C3LvpBbnNa/VQkupVg==}
     engines: {node: ^20.19.0 || ^22.12.0 || >=24.0.0}
     peerDependencies:
-      '@angular/common': 21.0.1
-      '@angular/compiler': 21.0.1
-      '@angular/core': 21.0.1
-      '@angular/platform-browser': 21.0.1
+      '@angular/common': 21.0.3
+      '@angular/compiler': 21.0.3
+      '@angular/core': 21.0.3
+      '@angular/platform-browser': 21.0.3
 
   '@angular/platform-browser@21.0.1':
     resolution: {integrity: sha512-68StH9HILKUqNhQKz6KKNHzpgk1n88CIusWlmJvnb0l6iWGf3ydq5lTMKAKiZQmSDAVP5unTGfNvIkh59GRyVg==}
@@ -5306,7 +5306,7 @@ snapshots:
       rxjs: 7.8.2
       tslib: 2.8.1
 
-  '@angular/platform-browser-dynamic@21.0.1(@angular/common@21.0.1(@angular/core@21.0.1(@angular/compiler@21.0.2)(rxjs@7.8.2)(zone.js@0.16.0))(rxjs@7.8.2))(@angular/compiler@21.0.2)(@angular/core@21.0.1(@angular/compiler@21.0.2)(rxjs@7.8.2)(zone.js@0.16.0))(@angular/platform-browser@21.0.1(@angular/animations@21.0.1(@angular/core@21.0.1(@angular/compiler@21.0.2)(rxjs@7.8.2)(zone.js@0.16.0)))(@angular/common@21.0.1(@angular/core@21.0.1(@angular/compiler@21.0.2)(rxjs@7.8.2)(zone.js@0.16.0))(rxjs@7.8.2))(@angular/core@21.0.1(@angular/compiler@21.0.2)(rxjs@7.8.2)(zone.js@0.16.0)))':
+  '@angular/platform-browser-dynamic@21.0.3(@angular/common@21.0.1(@angular/core@21.0.1(@angular/compiler@21.0.2)(rxjs@7.8.2)(zone.js@0.16.0))(rxjs@7.8.2))(@angular/compiler@21.0.2)(@angular/core@21.0.1(@angular/compiler@21.0.2)(rxjs@7.8.2)(zone.js@0.16.0))(@angular/platform-browser@21.0.1(@angular/animations@21.0.1(@angular/core@21.0.1(@angular/compiler@21.0.2)(rxjs@7.8.2)(zone.js@0.16.0)))(@angular/common@21.0.1(@angular/core@21.0.1(@angular/compiler@21.0.2)(rxjs@7.8.2)(zone.js@0.16.0))(rxjs@7.8.2))(@angular/core@21.0.1(@angular/compiler@21.0.2)(rxjs@7.8.2)(zone.js@0.16.0)))':
     dependencies:
       '@angular/common': 21.0.1(@angular/core@21.0.1(@angular/compiler@21.0.2)(rxjs@7.8.2)(zone.js@0.16.0))(rxjs@7.8.2)
       '@angular/compiler': 21.0.2
