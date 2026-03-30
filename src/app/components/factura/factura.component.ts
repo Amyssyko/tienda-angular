@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Factura, FacturaForm } from '@interfaces/factura';
+import { Producto } from '@interfaces/producto';
+import { Usuario } from '@interfaces/usuario';
+import { Filtro } from '@services/filter.service';
+import { Toast } from '@services/toaster.service';
+import { FacturaService } from '@shared/services/factura.service';
+import { ProductService } from '@shared/services/producto.service';
+import { UsuarioService } from '@shared/services/usuario.service';
 import { ToastrService } from 'ngx-toastr';
-import { Factura, FacturaForm } from 'src/app/interfaces/factura';
-import { Producto } from 'src/app/interfaces/producto';
-import { Usuario } from 'src/app/interfaces/usuario';
-import { Filtro } from 'src/app/services/filter.service';
-import { Toast } from 'src/app/services/toaster.service';
-import { FacturaService } from 'src/app/shared/services/factura.service';
-import { ProductService } from 'src/app/shared/services/producto.service';
-import { UsuarioService } from 'src/app/shared/services/usuario.service';
 // tw-elements initialization is centralized in AppComponent
 @Component({
   selector: 'app-factura',
@@ -31,7 +31,7 @@ export class FacturaComponent implements OnInit {
     private _facturaService: FacturaService,
     private _productoService: ProductService,
     private _usuarioService: UsuarioService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) {
     {
       this.toast = new Toast(this.toastr); // Inicializa la instancia de Toast
@@ -50,7 +50,7 @@ export class FacturaComponent implements OnInit {
   eliminarDetalleFactura(index: number): void {
     // Eliminar un objeto DetalleFactura del array
     this.facturaForm.DetalleFactura = this.facturaForm.DetalleFactura.filter(
-      (_, i) => i !== index
+      (_, i) => i !== index,
     );
   }
 
@@ -63,12 +63,12 @@ export class FacturaComponent implements OnInit {
   }
 
   obtenerProductos() {
-    this._productoService.obtenerProductos().subscribe((data) => {
+    (this._productoService.obtenerProductos().subscribe((data) => {
       this.productos = data;
     }),
       (error: any) => {
         console.error(error);
-      };
+      });
   }
 
   obtenerProducto(id: string) {
@@ -82,12 +82,12 @@ export class FacturaComponent implements OnInit {
   }
 
   obtenerUsuarios() {
-    this._usuarioService.obtenerUsuarios().subscribe((data) => {
+    (this._usuarioService.obtenerUsuarios().subscribe((data) => {
       this.usuarios = data;
     }),
       (error: any) => {
         console.error(error);
-      };
+      });
   }
 
   onSubmit() {
@@ -98,7 +98,7 @@ export class FacturaComponent implements OnInit {
     console.log(factura);
     if (!factura.DetalleFactura.length) {
       return this.toast.showError(
-        'Asegúrese de agregar los detalles de la factura'
+        'Asegúrese de agregar los detalles de la factura',
       );
     }
 
@@ -133,7 +133,7 @@ export class FacturaComponent implements OnInit {
   }
 
   obtenerFacturas() {
-    this._facturaService.obtenerFacturas().subscribe((data) => {
+    (this._facturaService.obtenerFacturas().subscribe((data) => {
       this.facturas = data.map((factura) => {
         return {
           ...factura,
@@ -148,11 +148,11 @@ export class FacturaComponent implements OnInit {
     }),
       (error: any) => {
         console.error(error);
-      };
+      });
   }
 
   actualizarFactura(id: string, factura: FacturaForm) {
-    this._facturaService.actualizarFactura(id, factura).subscribe((data) => {
+    (this._facturaService.actualizarFactura(id, factura).subscribe((data) => {
       if (data) {
         this.resetForm();
         this.obtenerFacturas();
@@ -162,11 +162,11 @@ export class FacturaComponent implements OnInit {
       (error: any) => {
         console.log('error');
         console.error(error);
-      };
+      });
   }
 
   crearFactura(factura: FacturaForm) {
-    this._facturaService.crearFactura(factura).subscribe((data) => {
+    (this._facturaService.crearFactura(factura).subscribe((data) => {
       if (data) {
         this.resetForm();
         this.obtenerFacturas();
@@ -176,11 +176,11 @@ export class FacturaComponent implements OnInit {
       (error: any) => {
         console.log('error');
         console.error(error);
-      };
+      });
   }
 
   eliminarFactura(id: string) {
-    this._facturaService.eliminarFactura(id).subscribe((data) => {
+    (this._facturaService.eliminarFactura(id).subscribe((data) => {
       if (data === null) {
         this.resetForm();
         this.obtenerFacturas();
@@ -190,6 +190,6 @@ export class FacturaComponent implements OnInit {
       (error: any) => {
         console.log('error');
         console.error(error);
-      };
+      });
   }
 }

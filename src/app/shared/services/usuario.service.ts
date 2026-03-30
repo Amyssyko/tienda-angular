@@ -1,10 +1,10 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '@environments/environment';
+import { Usuario, UsuarioForm } from '@interfaces/usuario';
+import { Toast } from '@services/toaster.service';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, catchError, throwError } from 'rxjs';
-import { Usuario, UsuarioForm } from 'src/app/interfaces/usuario';
-import { Toast } from 'src/app/services/toaster.service';
-import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,10 @@ export class UsuarioService {
   enpointId = 'usuario/';
   toast!: Toast;
 
-  constructor(private http: HttpClient, private toastr: ToastrService) {
+  constructor(
+    private http: HttpClient,
+    private toastr: ToastrService,
+  ) {
     this.toast = new Toast(this.toastr);
   }
 
@@ -26,20 +29,20 @@ export class UsuarioService {
         this.toast.showError(error.error);
 
         return throwError('Algo salio mal');
-      })
+      }),
     );
   }
 
   obtenerUsuario(id: string): Observable<Usuario> {
     return this.http.get<Usuario>(`${this.url}${this.endpoint}/${id}`).pipe(
       catchError((error: HttpErrorResponse) => {
-        console.log(error)
+        console.log(error);
 
         if (error.error) {
           this.toast.showError(error.error);
         }
         return throwError('Algo salio mal');
-      })
+      }),
     );
   }
 
@@ -52,7 +55,7 @@ export class UsuarioService {
             this.toast.showError(error.error);
           }
           return throwError('Algo salio mal');
-        })
+        }),
       );
   }
 
@@ -71,7 +74,7 @@ export class UsuarioService {
           }
 
           return throwError('Algo salio mal');
-        })
+        }),
       );
   }
 
@@ -82,7 +85,7 @@ export class UsuarioService {
           this.toast.showError(error.error);
         }
         return throwError('Algo salio mal');
-      })
+      }),
     );
   }
 }

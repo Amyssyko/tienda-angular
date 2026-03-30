@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FacturaForm } from 'src/app/interfaces/factura';
-import { Usuario } from 'src/app/interfaces/usuario';
-import { FacturaService } from 'src/app/shared/services/factura.service';
-import { UsuarioService } from 'src/app/shared/services/usuario.service';
+import { FacturaForm } from '@interfaces/factura';
+import { Usuario } from '@interfaces/usuario';
+import { FacturaService } from '@shared/services/factura.service';
+import { UsuarioService } from '@shared/services/usuario.service';
 // tw-elements initialization is centralized in AppComponent
 
 @Component({
@@ -18,7 +18,7 @@ export class FormularioFacturaComponent implements OnInit {
   usuarios: Usuario[] = [];
   constructor(
     private facturaService: FacturaService,
-    private _usuarioService: UsuarioService
+    private _usuarioService: UsuarioService,
   ) {}
 
   ngOnInit(): void {
@@ -34,7 +34,7 @@ export class FormularioFacturaComponent implements OnInit {
       },
       (error) => {
         alert('Error al guardar la factura: ' + error.message);
-      }
+      },
     );
   }
 

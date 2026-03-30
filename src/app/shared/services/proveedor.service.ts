@@ -1,10 +1,10 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '@environments/environment';
+import { Proveedor, ProveedorForm } from '@interfaces/proveedor';
+import { Toast } from '@services/toaster.service';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, catchError, throwError } from 'rxjs';
-import { Proveedor, ProveedorForm } from 'src/app/interfaces/proveedor';
-import { Toast } from 'src/app/services/toaster.service';
-import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,10 @@ export class ProveedorService {
   handleError: any;
   toast!: Toast;
 
-  constructor(private http: HttpClient, private toastr: ToastrService) {
+  constructor(
+    private http: HttpClient,
+    private toastr: ToastrService,
+  ) {
     this.toast = new Toast(this.toastr);
   }
 
@@ -27,7 +30,7 @@ export class ProveedorService {
         this.toast.showError(error.error);
 
         return throwError('Algo salio mal');
-      })
+      }),
     );
   }
 
@@ -35,9 +38,9 @@ export class ProveedorService {
     return this.http.get<Proveedor>(`${this.url}${this.enpointId}${id}`).pipe(
       catchError((error: HttpErrorResponse) => {
         this.toast.showError(error.error);
-     
+
         return throwError('Algo salio mal');
-      })
+      }),
     );
   }
 
@@ -51,13 +54,13 @@ export class ProveedorService {
           }
 
           return throwError(error.error);
-        })
+        }),
       );
   }
 
   actualizarProveedor(
     id: string,
-    proveedor: ProveedorForm
+    proveedor: ProveedorForm,
   ): Observable<Proveedor> {
     return this.http
       .put<Proveedor>(`${this.url}${this.enpointId}${id}`, proveedor)
@@ -65,7 +68,7 @@ export class ProveedorService {
         catchError((error: HttpErrorResponse) => {
           this.toast.showError(error.error);
           return throwError('Algo salio mal');
-        })
+        }),
       );
   }
   eliminarProveedor(id: string): Observable<Proveedor> {
@@ -75,7 +78,7 @@ export class ProveedorService {
         catchError((error: HttpErrorResponse) => {
           this.toast.showError(error.error);
           return throwError('Algo salio mal');
-        })
+        }),
       );
   }
 }

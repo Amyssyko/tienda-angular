@@ -6,13 +6,13 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Producto, ProductoForm } from '@interfaces/producto';
+import { Proveedor } from '@interfaces/proveedor';
+import { Filtro } from '@services/filter.service';
+import { Toast } from '@services/toaster.service';
+import { ProductService } from '@shared/services/producto.service';
+import { ProveedorService } from '@shared/services/proveedor.service';
 import { ToastrService } from 'ngx-toastr';
-import { Producto, ProductoForm } from 'src/app/interfaces/producto';
-import { Proveedor } from 'src/app/interfaces/proveedor';
-import { Filtro } from 'src/app/services/filter.service';
-import { Toast } from 'src/app/services/toaster.service';
-import { ProductService } from 'src/app/shared/services/producto.service';
-import { ProveedorService } from 'src/app/shared/services/proveedor.service';
 
 @Component({
   selector: 'app-producto',
@@ -33,7 +33,7 @@ export class ProductoComponent implements OnInit {
     private _productService: ProductService,
     private _proveedorService: ProveedorService,
     private formBuilder: FormBuilder,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) {
     {
       this.toast = new Toast(this.toastr); // Inicializa la instancia de Toast
@@ -85,7 +85,7 @@ export class ProductoComponent implements OnInit {
       }
     } else {
       this.toast.showWarning(
-        'Formulario inválido, algunos campos son inválidos o están vacíos'
+        'Formulario inválido, algunos campos son inválidos o están vacíos',
       ); // Llama al método showError de la instancia de Toast
     }
   }
@@ -109,7 +109,7 @@ export class ProductoComponent implements OnInit {
   }
 
   actualizarProducto(id: string, producto: ProductoForm) {
-    this._productService.actualizarProducto(id, producto).subscribe((data) => {
+    (this._productService.actualizarProducto(id, producto).subscribe((data) => {
       if (data) {
         this.resetForm();
         this.obtenerProductos();
@@ -119,11 +119,11 @@ export class ProductoComponent implements OnInit {
       (error: any) => {
         console.log('error');
         console.error(error);
-      };
+      });
   }
 
   crearProducto(producto: ProductoForm) {
-    this._productService.crearProducto(producto).subscribe((data) => {
+    (this._productService.crearProducto(producto).subscribe((data) => {
       if (data) {
         this.resetForm();
         this.obtenerProductos();
@@ -133,11 +133,11 @@ export class ProductoComponent implements OnInit {
       (error: any) => {
         console.log('error');
         console.error(error);
-      };
+      });
   }
 
   eliminarProducto(id: string) {
-    this._productService.eliminarProducto(id).subscribe((data) => {
+    (this._productService.eliminarProducto(id).subscribe((data) => {
       if (data === null) {
         this.resetForm();
         this.obtenerProductos();
@@ -147,13 +147,13 @@ export class ProductoComponent implements OnInit {
       (error: any) => {
         console.log('error');
         console.error(error);
-      };
+      });
   }
 
   obtenerProductos() {
-    this._productService.obtenerProductos().subscribe((data) => {
+    (this._productService.obtenerProductos().subscribe((data) => {
       const newData = data.filter(
-        (item) => item.proveedorId === this.proveedor
+        (item) => item.proveedorId === this.proveedor,
       );
 
       this.productos = newData.map((item) => {
@@ -168,7 +168,7 @@ export class ProductoComponent implements OnInit {
               hour: '2-digit',
               minute: '2-digit',
               second: '2-digit',
-            }
+            },
           ),
           fecha_modificacion: item.fecha_modificacion
             ? new Date(item.fecha_modificacion).toLocaleDateString('es-ES', {
@@ -185,6 +185,6 @@ export class ProductoComponent implements OnInit {
     }),
       (error: any) => {
         console.error(error);
-      };
+      });
   }
 }

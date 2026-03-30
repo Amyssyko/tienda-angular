@@ -1,10 +1,10 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '@environments/environment';
+import { Factura, FacturaForm } from '@interfaces/factura';
+import { Toast } from '@services/toaster.service';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, catchError, throwError } from 'rxjs';
-import { Factura, FacturaForm } from 'src/app/interfaces/factura';
-import { Toast } from 'src/app/services/toaster.service';
-import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,10 @@ export class VentaService {
   handleError: any;
   toast!: Toast;
 
-  constructor(private http: HttpClient, private toastr: ToastrService) {
+  constructor(
+    private http: HttpClient,
+    private toastr: ToastrService,
+  ) {
     this.toast = new Toast(this.toastr);
   }
 
@@ -27,7 +30,7 @@ export class VentaService {
         this.toast.showError(error.error);
 
         return throwError('Algo salio mal');
-      })
+      }),
     );
   }
 
@@ -37,7 +40,7 @@ export class VentaService {
         this.toast.showError(error.error);
 
         return throwError('Algo salio mal');
-      })
+      }),
     );
   }
 
@@ -49,7 +52,7 @@ export class VentaService {
         }
 
         return throwError(error.error);
-      })
+      }),
     );
   }
 
@@ -60,7 +63,7 @@ export class VentaService {
         catchError((error: HttpErrorResponse) => {
           this.toast.showError(error.error);
           return throwError('Algo salio mal');
-        })
+        }),
       );
   }
   eliminarFactura(id: string): Observable<Factura> {
@@ -69,7 +72,7 @@ export class VentaService {
         this.toast.showError(error.error);
 
         return throwError('Algo salio mal');
-      })
+      }),
     );
   }
 }

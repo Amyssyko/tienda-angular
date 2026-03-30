@@ -15,7 +15,6 @@ import { ProductoComponent } from './components/producto/producto.component';
 import { ProveedorComponent } from './components/proveedor/proveedor.component';
 import { UsuarioComponent } from './components/usuario/usuario.component';
 import { VentaComponent } from './components/venta/venta.component';
-import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [],
@@ -28,7 +27,6 @@ import { SharedModule } from './shared/shared.module';
     HttpClientModule,
     BrowserAnimationsModule,
     CommonModule,
-    SharedModule,
     // Standalone components (import instead of declaring)
     AppComponent,
     NavbarComponent,

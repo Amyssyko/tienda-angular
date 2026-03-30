@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Usuario } from 'src/app/interfaces/usuario';
-import { UsuarioService } from 'src/app/shared/services/usuario.service';
+import { Usuario } from '@interfaces/usuario';
+import { UsuarioService } from '@shared/services/usuario.service';
 
 @Component({
   selector: 'app-navbar',

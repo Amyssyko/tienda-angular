@@ -6,14 +6,14 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Producto, ProductoForm } from '@interfaces/producto';
+import { Proveedor } from '@interfaces/proveedor';
+import { Filtro } from '@services/filter.service';
+import { Toast } from '@services/toaster.service';
+import { ProductService } from '@shared/services/producto.service';
+import { ProveedorService } from '@shared/services/proveedor.service';
 import { ToastrService } from 'ngx-toastr';
-import { Producto, ProductoForm } from 'src/app/interfaces/producto';
-import { Proveedor } from 'src/app/interfaces/proveedor';
-import { Filtro } from 'src/app/services/filter.service';
-import { Toast } from 'src/app/services/toaster.service';
-import { ProductService } from 'src/app/shared/services/producto.service';
-import { ProveedorService } from 'src/app/shared/services/proveedor.service';
 
 @Component({
   selector: 'app-producto-form',
@@ -33,10 +33,11 @@ export class ProductoFormComponent {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private _productService: ProductService,
     private _proveedorService: ProveedorService,
     private formBuilder: FormBuilder,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) {
     {
       this.toast = new Toast(this.toastr); // Inicializa la instancia de Toast
@@ -99,7 +100,7 @@ export class ProductoFormComponent {
       }
     } else {
       this.toast.showWarning(
-        'Formulario inválido, algunos campos son inválidos o están vacíos'
+        'Formulario inválido, algunos campos son inválidos o están vacíos',
       ); // Llama al método showError de la instancia de Toast
     }
   }
@@ -123,38 +124,37 @@ export class ProductoFormComponent {
   }
 
   actualizarProducto(id: string, producto: ProductoForm) {
-    this._productService.actualizarProducto(id, producto).subscribe((data) => {
+    (this._productService.actualizarProducto(id, producto).subscribe((data) => {
       if (data) {
         this.resetForm();
         this.obtenerProductos();
         this.toast.showUpdate('Producto actualizado con éxito'); // Llama al método showSuccess de la instancia de Toast
-        //redirectTo('/productos');
-        window.location.href = '/productos';
+        this.router.navigate(['/productos']);
       }
     }),
       (error: any) => {
         console.log('error');
         console.error(error);
-      };
+      });
   }
 
   crearProducto(producto: ProductoForm) {
-    this._productService.crearProducto(producto).subscribe((data) => {
+    (this._productService.crearProducto(producto).subscribe((data) => {
       if (data) {
         this.resetForm();
         this.obtenerProductos();
         this.toast.showSuccess('Producto creado con éxito'); // Llama al método showUpdate de la instancia de Toast
-        window.location.href = '/productos';
+        this.router.navigate(['/productos']);
       }
     }),
       (error: any) => {
         console.log('error');
         console.error(error);
-      };
+      });
   }
 
   eliminarProducto(id: string) {
-    this._productService.eliminarProducto(id).subscribe((data) => {
+    (this._productService.eliminarProducto(id).subscribe((data) => {
       if (data === null) {
         this.resetForm();
         this.obtenerProductos();
@@ -164,17 +164,17 @@ export class ProductoFormComponent {
       (error: any) => {
         console.log('error');
         console.error(error);
-      };
+      });
   }
 
   obtenerProductos() {
-    this._productService.obtenerProductos().subscribe((data) => {
+    (this._productService.obtenerProductos().subscribe((data) => {
       const newData = data.filter(
-        (item) => item.proveedorId === this.proveedor
+        (item) => item.proveedorId === this.proveedor,
       );
     }),
       (error: any) => {
         console.error(error);
-      };
+      });
   }
 }

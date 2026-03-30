@@ -6,12 +6,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Proveedor, ProveedorForm } from '@interfaces/proveedor';
+import { Filtro } from '@services/filter.service';
+import { Toast } from '@services/toaster.service';
+import { ProveedorService } from '@shared/services/proveedor.service';
 import { Modal, initFlowbite } from 'flowbite';
 import { ToastrService } from 'ngx-toastr';
-import { Proveedor, ProveedorForm } from 'src/app/interfaces/proveedor';
-import { Filtro } from 'src/app/services/filter.service';
-import { Toast } from 'src/app/services/toaster.service';
-import { ProveedorService } from 'src/app/shared/services/proveedor.service';
 
 @Component({
   selector: 'app-proveedor',
@@ -30,7 +30,7 @@ export class ProveedorComponent implements OnInit {
   constructor(
     private _proveedorService: ProveedorService,
     private formBuilder: FormBuilder,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) {
     {
       this.toast = new Toast(this.toastr); // Inicializa la instancia de Toast
@@ -66,7 +66,7 @@ export class ProveedorComponent implements OnInit {
       this.onCloseModal();
     } else {
       this.toast.showWarning(
-        'Formulario inválido, algunos campos son inválidos o están vacíos'
+        'Formulario inválido, algunos campos son inválidos o están vacíos',
       ); // Llama al método showError de la instancia de Toast
     }
   }
@@ -136,7 +136,7 @@ export class ProveedorComponent implements OnInit {
                 hour: '2-digit',
                 minute: '2-digit',
                 second: '2-digit',
-              }
+              },
             ),
             fecha_modificacion: item.fecha_modificacion
               ? new Date(item.fecha_modificacion).toLocaleDateString('es-ES', {
@@ -153,26 +153,24 @@ export class ProveedorComponent implements OnInit {
       },
       (error: any) => {
         console.error(error);
-      }
+      },
     );
   }
 
   actualizarProveedor(id: string, producto: ProveedorForm) {
-    this._proveedorService
-      .actualizarProveedor(id, producto)
-      .subscribe(
-        (data) => {
-          if (data) {
-            this.resetForm();
-            this.obtenerProveedores();
-            this.toast.showUpdate('Proveedor actualizado con éxito'); // Llama al método showSuccess de la instancia de Toast
-          }
-        },
-        (error: any) => {
-          console.log('error');
-          console.error(error);
+    this._proveedorService.actualizarProveedor(id, producto).subscribe(
+      (data) => {
+        if (data) {
+          this.resetForm();
+          this.obtenerProveedores();
+          this.toast.showUpdate('Proveedor actualizado con éxito'); // Llama al método showSuccess de la instancia de Toast
         }
-      );
+      },
+      (error: any) => {
+        console.log('error');
+        console.error(error);
+      },
+    );
   }
 
   crearProveedor(producto: ProveedorForm) {
@@ -187,7 +185,7 @@ export class ProveedorComponent implements OnInit {
       (error: any) => {
         console.log('error');
         console.error(error);
-      }
+      },
     );
   }
 
@@ -203,7 +201,7 @@ export class ProveedorComponent implements OnInit {
       (error: any) => {
         console.log('error');
         console.error(error);
-      }
+      },
     );
   }
 }

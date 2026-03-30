@@ -1,11 +1,11 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '@environments/environment';
+import { Producto, ProductoForm } from '@interfaces/producto';
+import { Proveedor } from '@interfaces/proveedor';
+import { Toast } from '@services/toaster.service';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, catchError, throwError } from 'rxjs';
-import { Producto, ProductoForm } from 'src/app/interfaces/producto';
-import { Proveedor } from 'src/app/interfaces/proveedor';
-import { Toast } from 'src/app/services/toaster.service';
-import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +20,10 @@ export class ProductService {
   handleError: any;
   toast!: Toast;
 
-  constructor(private http: HttpClient, private toastr: ToastrService) {
+  constructor(
+    private http: HttpClient,
+    private toastr: ToastrService,
+  ) {
     this.toast = new Toast(this.toastr);
   }
 
@@ -31,7 +34,7 @@ export class ProductService {
         catchError((error: HttpErrorResponse) => {
           this.toast.showError(error.error);
           return throwError('Algo salio mal');
-        })
+        }),
       );
   }
 
@@ -41,7 +44,7 @@ export class ProductService {
         this.toast.showError(error.error);
 
         return throwError('Algo salio mal');
-      })
+      }),
     );
   }
 
@@ -51,7 +54,7 @@ export class ProductService {
         this.toast.showError(error.error);
 
         return throwError('Algo salio mal');
-      })
+      }),
     );
   }
 
@@ -62,7 +65,7 @@ export class ProductService {
         catchError((error: HttpErrorResponse) => {
           this.toast.showError(error.error);
           return throwError('Algo salio mal');
-        })
+        }),
       );
   }
 
@@ -73,7 +76,7 @@ export class ProductService {
         catchError((error: HttpErrorResponse) => {
           this.toast.showError(error.error);
           return throwError('Algo salio mal');
-        })
+        }),
       );
   }
   eliminarProducto(id: string): Observable<Producto> {
@@ -82,7 +85,7 @@ export class ProductService {
         this.toast.showError(error.error);
 
         return throwError('Algo salio mal');
-      })
+      }),
     );
   }
 }

@@ -6,12 +6,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Usuario, UsuarioForm } from '@interfaces/usuario';
+import { Filtro } from '@services/filter.service';
+import { Toast } from '@services/toaster.service';
+import { UsuarioService } from '@shared/services/usuario.service';
 import { Modal, initFlowbite } from 'flowbite';
 import { ToastrService } from 'ngx-toastr';
-import { Usuario, UsuarioForm } from 'src/app/interfaces/usuario';
-import { Filtro } from 'src/app/services/filter.service';
-import { Toast } from 'src/app/services/toaster.service';
-import { UsuarioService } from 'src/app/shared/services/usuario.service';
 
 @Component({
   selector: 'app-usuario',
@@ -61,7 +61,7 @@ export class UsuarioComponent implements OnInit {
   constructor(
     private _usuarioService: UsuarioService,
     private formBuilder: FormBuilder,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) {
     {
       this.toast = new Toast(this.toastr); // Inicializa la instancia de Toast
@@ -96,7 +96,7 @@ export class UsuarioComponent implements OnInit {
       },
       (error: any) => {
         console.error(error);
-      }
+      },
     );
   }
 
@@ -110,7 +110,7 @@ export class UsuarioComponent implements OnInit {
       (error: any) => {
         console.log('error');
         console.error(error);
-      }
+      },
     );
   }
 
@@ -123,7 +123,7 @@ export class UsuarioComponent implements OnInit {
       },
       (error: any) => {
         console.error(error);
-      }
+      },
     );
   }
 
@@ -136,7 +136,7 @@ export class UsuarioComponent implements OnInit {
       },
       (error: any) => {
         console.error(error);
-      }
+      },
     );
   }
 
@@ -209,7 +209,7 @@ export class UsuarioComponent implements OnInit {
       this.onCloseModal();
     } else {
       this.toast.showError(
-        'Formulario inválido, complete los campos requeridos'
+        'Formulario inválido, complete los campos requeridos',
       ); // Llama al método showError de la instancia de Toast
     }
   }
