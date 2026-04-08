@@ -14,6 +14,35 @@ pnpm run start
 
 El servidor se iniciará en `http://localhost:4200/` (o en otro puerto si 4200 está en uso). Si ves un mensaje acerca de la versión de Node.js, considera usar una versión LTS (por ejemplo 18.x o 20.x) en vez de una versión impar no-LTS.
 
+## Seguridad de supply chain con pnpm
+
+Se añadieron controles de seguridad en `pnpm-workspace.yaml` siguiendo recomendaciones de `pnpm`:
+
+- `allowBuilds` + `strictDepBuilds`: solo paquetes de confianza pueden ejecutar scripts de instalación.
+- `blockExoticSubdeps: true`: bloquea dependencias transitivas desde fuentes exóticas (git/tarballs remotos).
+- `minimumReleaseAge: 1440`: evita instalar versiones publicadas hace menos de 24h.
+- `trustPolicy: no-downgrade`: evita instalar versiones con menor nivel de confianza que versiones previas.
+- `resolutionMode: time-based`: reduce riesgo de hijacking en subdependencias.
+- `preferFrozenLockfile: true` y lockfile en repo: instalaciones más reproducibles.
+- `packageManagerStrictVersion: true`: fuerza usar la versión de pnpm fijada en `package.json`.
+
+Si en el futuro agregas una dependencia legítima que necesite `postinstall`, apruébala explícitamente (en vez de habilitar ejecución global de scripts de dependencias).
+
+### Modo estricto en CI
+
+Se añadió el workflow `/.github/workflows/ci-security.yml` que en cada `push`/`PR` a `main`:
+
+- valida que la política de hardening siga activa (`strictDepBuilds`, `blockExoticSubdeps`, `minimumReleaseAge`, `trustPolicy`, `preferFrozenLockfile`),
+- falla si alguien habilita `dangerouslyAllowAllBuilds: true`,
+- exige instalación reproducible con `pnpm install --frozen-lockfile`,
+- compila la app (`pnpm run build`).
+
+### Política para excepciones de `minimumReleaseAge`
+
+- Añade excepciones de forma **puntual y versionada** (por ejemplo `postcss@8.5.9`).
+- Evita excepciones por nombre sin versión para no abrir demasiado la superficie.
+- Elimina excepciones cuando ya no sean necesarias tras una actualización normal del lockfile.
+
 ## Code scaffolding
 
 Run `pnpm ng g c componentName` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
@@ -25,7 +54,6 @@ Run `ng build` to crear los artefactos en `dist/`.
 Puntos importantes tras la migración a Angular 21:
 
 - Tailwind CSS: la integración se cambió para usar el plugin de PostCSS separado. El proyecto ya contiene una configuración válida:
-
   - `.postcssrc.json` con:
 
     ```json
@@ -49,7 +77,6 @@ Puntos importantes tras la migración a Angular 21:
 - `tailwind.config.js` incluye los paths de contenido y los plugins (por ejemplo `flowbite` / `tw-elements`) — si encuentras errores en tiempo de ejecución relacionados con `tw-elements`, revisa su versión o coméntalo temporalmente del `plugins` en `tailwind.config.js`.
 
   Recomendación específica para `tw-elements` en este proyecto:
-
   - Asegúrate de que `tailwind.config.js` incluya la ruta correcta hacia los scripts de `tw-elements` en `content`, por ejemplo:
 
     ```js
@@ -63,7 +90,6 @@ Puntos importantes tras la migración a Angular 21:
     ```
 
   (Estos ajustes ya están aplicados en la configuración del repo.)
-
   - tw-elements (runtime): la librería ahora se inicializa en los componentes que la usan mediante la función exportada `initTWE`.
     Ejemplo (ya aplicado en componentes de facturación):
 

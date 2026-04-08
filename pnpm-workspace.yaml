@@ -1,5 +1,18 @@
-onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - esbuild
-  - lmdb
-  - msgpackr-extract
+allowBuilds:
+  "@parcel/watcher": true
+  esbuild: true
+  lmdb: true
+  msgpackr-extract: true
+
+strictDepBuilds: true
+blockExoticSubdeps: true
+minimumReleaseAge: 1440
+minimumReleaseAgeExclude:
+  - postcss@8.5.9
+trustPolicy: no-downgrade
+trustPolicyIgnoreAfter: 525600
+resolutionMode: time-based
+verifyDepsBeforeRun: error
+preferFrozenLockfile: true
+savePrefix: ""
+packageManagerStrictVersion: true
