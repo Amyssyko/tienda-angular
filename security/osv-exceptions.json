@@ -1,0 +1,5 @@
+{
+  "$schema": "https://example.local/schemas/osv-exceptions.schema.json",
+  "description": "Excepciones temporales para OSV. Requiere reason y expiresOn.",
+  "exceptions": []
+}

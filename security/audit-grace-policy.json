@@ -1,0 +1,112 @@
+{
+  "$schema": "https://example.local/schemas/audit-grace-policy.schema.json",
+  "description": "Política de grace para auditorías. Toda excepción debe incluir reason y expiresOn.",
+  "defaultThreshold": "HIGH",
+  "defaultGraceDays": 14,
+  "exceptions": [
+    {
+      "id": "GHSA-EXAMPLE-0001",
+      "package": "example-package",
+      "reason": "Ejemplo temporal de formato. Eliminar o reemplazar por caso real.",
+      "expiresOn": "2026-04-28"
+    }
+  ],
+  "graceWindow": [
+    {
+      "id": "GHSA-34X7-HFP2-RC4V",
+      "detectedOn": "2026-04-14",
+      "graceDays": 14,
+      "reason": "Dependencia transitiva de Angular CLI; pendiente actualización de cadena."
+    },
+    {
+      "id": "GHSA-7H2J-956F-4VF2",
+      "detectedOn": "2026-04-14",
+      "graceDays": 14,
+      "reason": "Dependencia transitiva de Angular CLI; pendiente actualización de cadena."
+    },
+    {
+      "id": "GHSA-8QQ5-RM4J-MR97",
+      "detectedOn": "2026-04-14",
+      "graceDays": 14,
+      "reason": "Dependencia transitiva de Angular CLI; pendiente actualización de cadena."
+    },
+    {
+      "id": "GHSA-83G3-92JG-28CX",
+      "detectedOn": "2026-04-14",
+      "graceDays": 14,
+      "reason": "Dependencia transitiva de Angular CLI; pendiente actualización de cadena."
+    },
+    {
+      "id": "GHSA-3PPC-4F35-3M26",
+      "detectedOn": "2026-04-14",
+      "graceDays": 14,
+      "reason": "Dependencia transitiva de tooling (minimatch) en cadena de build/test."
+    },
+    {
+      "id": "GHSA-7R86-CG39-JMMJ",
+      "detectedOn": "2026-04-14",
+      "graceDays": 14,
+      "reason": "Dependencia transitiva de tooling (minimatch) en cadena de build/test."
+    },
+    {
+      "id": "GHSA-23C5-XMQV-RM74",
+      "detectedOn": "2026-04-14",
+      "graceDays": 14,
+      "reason": "Dependencia transitiva de tooling (minimatch) en cadena de build/test."
+    },
+    {
+      "id": "GHSA-MW96-CPMX-2VGC",
+      "detectedOn": "2026-04-14",
+      "graceDays": 14,
+      "reason": "Vulnerabilidad transitoria en Rollup vía herramienta de build."
+    },
+    {
+      "id": "GHSA-WF6X-7X77-MVGW",
+      "detectedOn": "2026-04-14",
+      "graceDays": 14,
+      "reason": "Vulnerabilidad transitoria en immutable vía tooling de build."
+    },
+    {
+      "id": "GHSA-QFFP-2RHF-9H96",
+      "detectedOn": "2026-04-14",
+      "graceDays": 14,
+      "reason": "Dependencia transitiva tar pendiente de parche upstream."
+    },
+    {
+      "id": "GHSA-9PPJ-QMQM-Q256",
+      "detectedOn": "2026-04-14",
+      "graceDays": 14,
+      "reason": "Dependencia transitiva tar pendiente de parche upstream."
+    },
+    {
+      "id": "GHSA-25H7-PFQ9-P65F",
+      "detectedOn": "2026-04-14",
+      "graceDays": 14,
+      "reason": "Dependencia transitiva en rama de pruebas (karma/log4js)."
+    },
+    {
+      "id": "GHSA-R6Q2-HW4H-H46W",
+      "detectedOn": "2026-04-14",
+      "graceDays": 14,
+      "reason": "Dependencia transitiva tar pendiente de parche upstream."
+    },
+    {
+      "id": "GHSA-677M-J7P3-52F9",
+      "detectedOn": "2026-04-14",
+      "graceDays": 14,
+      "reason": "Dependencia transitiva de pruebas (socket.io-parser) pendiente de upgrade."
+    },
+    {
+      "id": "GHSA-RF6F-7FWH-WJGH",
+      "detectedOn": "2026-04-14",
+      "graceDays": 14,
+      "reason": "Dependencia transitiva de pruebas (flatted) pendiente de upgrade."
+    },
+    {
+      "id": "GHSA-R5FR-RJXR-66JC",
+      "detectedOn": "2026-04-14",
+      "graceDays": 14,
+      "reason": "Dependencia transitiva de pruebas (lodash) pendiente de upgrade."
+    }
+  ]
+}

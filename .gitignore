@@ -10,6 +10,7 @@
 /node_modules
 npm-debug.log
 yarn-error.log
+bun-debug.log
 
 # IDEs and editors
 .idea/
@@ -36,6 +37,22 @@ yarn-error.log
 /libpeerconnection.log
 testem.log
 /typings
+
+# Security & audit artifacts (generated locally/CI)
+bun-audit.txt
+npm-audit.json
+osv-results.json
+sbom.cdx.json
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Local OS/editor noise
+*.log
+*.tmp
+*.temp
 
 # System files
 .DS_Store

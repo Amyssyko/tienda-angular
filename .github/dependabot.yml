@@ -5,10 +5,10 @@
 
 version: 2
 updates:
-  - package-ecosystem: "npm" # Para proyectos Node.js (incluye pnpm)
-    directory: "/"           # Carpeta donde está tu pnpm-lock.yaml
+  - package-ecosystem: "npm" # Para proyectos Node.js (incluye Bun)
+    directory: "/" # Carpeta donde está tu bun.lock
     schedule:
-      interval: "weekly"     # Frecuencia de actualización
+      interval: "weekly" # Frecuencia de actualización
     allow:
-      - dependency-type: "all"  # Puedes limitar a "direct" o "indirect"
+      - dependency-type: "all" # Puedes limitar a "direct" o "indirect"
     open-pull-requests-limit: 5 # Número máximo de PRs abiertos

@@ -1,0 +1,66 @@
+name: Dependency Security
+
+on:
+  pull_request:
+    branches: ["main"]
+  push:
+    branches: ["main"]
+  schedule:
+    - cron: "19 3 * * 1"
+
+permissions:
+  contents: read
+  security-events: write
+
+env:
+  OSV_FAIL_ON_SEVERITY: HIGH
+  AUDIT_FAIL_ON_SEVERITY: HIGH
+  AUDIT_GRACE_DAYS: "14"
+  ENFORCE_POLICIES: ${{ github.event_name == 'pull_request' && 'false' || 'true' }}
+
+jobs:
+  deps-security:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.3.11"
+
+      - name: Setup Node.js (LTS)
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+
+      - name: Install (frozen lockfile)
+        run: bun install --frozen-lockfile
+
+      - name: Check exceptions expiry
+        run: bun run security:check-exceptions-expiry -- --warn-days 14 --enforce ${{ env.ENFORCE_POLICIES }}
+
+      - name: Capture bun audit
+        run: bun audit > bun-audit.txt || true
+
+      - name: Capture npm audit (json)
+        run: npm audit --json > npm-audit.json || true
+
+      - name: Enforce audit policy
+        run: bun run security:enforce-audit -- --enforce ${{ env.ENFORCE_POLICIES }} --threshold ${{ env.AUDIT_FAIL_ON_SEVERITY }} --default-grace-days ${{ env.AUDIT_GRACE_DAYS }}
+
+      - name: Generate CycloneDX SBOM
+        run: npm --silent exec --yes @cyclonedx/cyclonedx-npm -- --ignore-npm-errors --output-file sbom.cdx.json
+
+      - name: Run OSV scanner (SBOM)
+        uses: google/osv-scanner-action@v1.9.2
+        with:
+          scan-args: |-
+            --sbom=sbom.cdx.json
+            --format=json
+            --output=osv-results.json
+
+      - name: Enforce OSV policy
+        run: bun run security:enforce-osv -- --enforce ${{ env.ENFORCE_POLICIES }} --threshold ${{ env.OSV_FAIL_ON_SEVERITY }}

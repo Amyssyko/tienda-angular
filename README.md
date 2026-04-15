@@ -9,22 +9,75 @@ Nota: originalmente el proyecto se generó con Angular CLI v15.2.10; durante la 
 Usa el script de desarrollo habitual:
 
 ```pwsh
-pnpm run start
+bun run start
 ```
 
 El servidor se iniciará en `http://localhost:4200/` (o en otro puerto si 4200 está en uso). Si ves un mensaje acerca de la versión de Node.js, considera usar una versión LTS (por ejemplo 18.x o 20.x) en vez de una versión impar no-LTS.
 
-## Seguridad de supply chain con pnpm
+## Seguridad de supply chain con Bun
 
-Se añadieron controles de seguridad en `pnpm-workspace.yaml` siguiendo recomendaciones de `pnpm`:
+Se añadieron controles de seguridad para Bun y dependencias fijadas:
 
-- `allowBuilds` + `strictDepBuilds`: solo paquetes de confianza pueden ejecutar scripts de instalación.
-- `blockExoticSubdeps: true`: bloquea dependencias transitivas desde fuentes exóticas (git/tarballs remotos).
-- `minimumReleaseAge: 1440`: evita instalar versiones publicadas hace menos de 24h.
-- `trustPolicy: no-downgrade`: evita instalar versiones con menor nivel de confianza que versiones previas.
-- `resolutionMode: time-based`: reduce riesgo de hijacking en subdependencias.
-- `preferFrozenLockfile: true` y lockfile en repo: instalaciones más reproducibles.
-- `packageManagerStrictVersion: true`: fuerza usar la versión de pnpm fijada en `package.json`.
+- `packageManager` fijado a versión exacta de Bun en `package.json`.
+- lockfile de Bun (`bun.lock`) como fuente reproducible de instalación.
+- validación de versiones exactas y bloqueo de fuentes/rangos inseguros en dependencias.
+
+Además, este repo incorpora un baseline de seguridad automatizado en `scripts/security/`:
+
+- Hardening de configuración (`security:check-config`): valida `packageManager`, lockfile de Bun y scripts mínimos.
+- Auditoría de vulnerabilidades (`bun audit` + `npm audit`) con política y grace temporal (`security:enforce-audit`).
+- Escaneo OSV sobre SBOM CycloneDX (`security:enforce-osv`).
+- SAST con CodeQL (`.github/workflows/codeql.yml`).
+- Detección de secretos con Gitleaks (`.github/workflows/secret-scan.yml`).
+- Política de excepciones temporales con expiración obligatoria (`security/audit-grace-policy.json`, `security/osv-exceptions.json`).
+
+### Gating gradual en CI
+
+- En `pull_request`: políticas de vulnerabilidades en **modo reporte** (`--enforce false`).
+- En `push` a `main` y en `schedule`: políticas en **modo bloqueante** (`--enforce true`).
+
+Esto permite visibilidad temprana en PR sin frenar el flujo, y enforcement estricto en ramas/procesos críticos.
+
+### Ejecución local de checks de seguridad
+
+Ejecuta cada control por separado:
+
+```pwsh
+bun run security:check-config
+bun run security:check-exceptions-expiry
+bun run security:audit
+bun run security:enforce-audit -- --enforce true --threshold HIGH
+bunx @cyclonedx/cyclonedx-npm --output-file sbom.cdx.json
+bun run security:enforce-osv -- --enforce true --threshold HIGH
+```
+
+Flujo completo (pre-push):
+
+```pwsh
+bun run prepush:ci
+```
+
+### Gestión de excepciones temporales
+
+Reglas obligatorias para cualquier excepción:
+
+- Debe incluir siempre `reason` + `expiresOn`.
+- La expiración debe ser corta y revisable.
+- No usar excepciones permanentes.
+
+Archivos de política:
+
+- `security/audit-grace-policy.json`
+  - `defaultThreshold` (por defecto `HIGH`)
+  - `defaultGraceDays` (por defecto `14`)
+  - `exceptions[]` (con vencimiento explícito)
+  - `graceWindow[]` (ventana temporal por detección)
+- `security/osv-exceptions.json`
+  - `exceptions[]` (por `id`, opcionalmente `package`, con vencimiento)
+
+### Política de rama main
+
+No se deben desactivar checks de seguridad en `main`. Si un hallazgo requiere excepción, debe registrarse de forma temporal, con justificación y fecha de caducidad.
 
 Si en el futuro agregas una dependencia legítima que necesite `postinstall`, apruébala explícitamente (en vez de habilitar ejecución global de scripts de dependencias).
 
@@ -34,8 +87,8 @@ Se añadió el workflow `/.github/workflows/ci-security.yml` que en cada `push`/
 
 - valida que la política de hardening siga activa (`strictDepBuilds`, `blockExoticSubdeps`, `minimumReleaseAge`, `trustPolicy`, `preferFrozenLockfile`),
 - falla si alguien habilita `dangerouslyAllowAllBuilds: true`,
-- exige instalación reproducible con `pnpm install --frozen-lockfile`,
-- compila la app (`pnpm run build`).
+- exige instalación reproducible con `bun install --frozen-lockfile`,
+- compila la app (`bun run build`).
 
 ### Política para excepciones de `minimumReleaseAge`
 
@@ -45,7 +98,7 @@ Se añadió el workflow `/.github/workflows/ci-security.yml` que en cada `push`/
 
 ## Code scaffolding
 
-Run `pnpm ng g c componentName` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Run `bun run ng g c componentName` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 ## Build
 
@@ -112,14 +165,14 @@ Puntos importantes tras la migración a Angular 21:
 
 ```pwsh
 rm -rf node_modules
-pnpm install
+bun install
 ```
 
 Esto se hizo ya durante la migración.
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `bun run test` (or `ng test`) to execute the unit tests with Vitest.
 
 ## Running end-to-end tests
 

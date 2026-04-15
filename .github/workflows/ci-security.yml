@@ -17,34 +17,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.3.11"
 
       - name: Setup Node.js (LTS)
         uses: actions/setup-node@v4
         with:
           node-version: "lts/*"
-          cache: "pnpm"
-
-      - name: Enforce pnpm hardening policy
-        shell: bash
-        run: |
-          set -euo pipefail
-          test -f pnpm-workspace.yaml
-
-          grep -Eq '^strictDepBuilds:\s*true$' pnpm-workspace.yaml
-          grep -Eq '^blockExoticSubdeps:\s*true$' pnpm-workspace.yaml
-          grep -Eq '^minimumReleaseAge:\s*[1-9][0-9]*$' pnpm-workspace.yaml
-          grep -Eq '^trustPolicy:\s*no-downgrade$' pnpm-workspace.yaml
-          grep -Eq '^preferFrozenLockfile:\s*true$' pnpm-workspace.yaml
-
-          if grep -Eq '^dangerouslyAllowAllBuilds:\s*true$' pnpm-workspace.yaml; then
-            echo 'dangerouslyAllowAllBuilds=true está prohibido en CI' >&2
-            exit 1
-          fi
 
       - name: Install (frozen lockfile)
-        run: pnpm install --frozen-lockfile
+        run: bun install --frozen-lockfile
+
+      - name: Security config checks
+        run: bun run security:check-config
+
+      - name: Lint
+        run: bun run lint
 
       - name: Build
-        run: pnpm run build
+        run: bun run build
+
+      - name: Test
+        run: bun run test
