@@ -55,11 +55,13 @@ jobs:
         run: npm --silent exec --yes @cyclonedx/cyclonedx-npm -- --ignore-npm-errors --output-file sbom.cdx.json
 
       - name: Run OSV scanner (SBOM)
-        uses: google/osv-scanner-action@v1.9.2
-        with:
-          scan-args: |-
-            --sbom=sbom.cdx.json
-            --format=json
+        run: |
+          curl -fsSL -o osv-scanner \
+            https://github.com/google/osv-scanner/releases/download/v1.9.2/osv-scanner_linux_amd64
+          chmod +x osv-scanner
+          ./osv-scanner \
+            --sbom=sbom.cdx.json \
+            --format=json \
             --output=osv-results.json
 
       - name: Enforce OSV policy
