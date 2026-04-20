@@ -39,7 +39,7 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "21.2.7",
     "@angular/cli": "21.2.7",
-    "@angular/compiler-cli": "21.2.8",
+    "@angular/compiler-cli": "21.2.9",
     "@tailwindcss/postcss": "4.2.2",
     "@vitest/browser-playwright": "4.1.4",
     "@types/cors": "2.8.19",
