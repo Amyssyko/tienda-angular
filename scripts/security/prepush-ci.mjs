@@ -3,27 +3,10 @@
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 
-const packageManagerExec = process.env.npm_execpath;
-const runWithNode = Boolean(
-  packageManagerExec && /\.(cjs|mjs|js)$/i.test(packageManagerExec),
-);
+const packageManagerCmd = process.platform === "win32" ? "bun.exe" : "bun";
 
 function runPackageManagerStep(label, args, options) {
-  if (runWithNode && packageManagerExec) {
-    return runStep(
-      label,
-      process.execPath,
-      [packageManagerExec, ...args],
-      options,
-    );
-  }
-
-  if (packageManagerExec) {
-    return runStep(label, packageManagerExec, args, options);
-  }
-
-  const bunCmd = process.platform === "win32" ? "bun.exe" : "bun";
-  return runStep(label, bunCmd, args, options);
+  return runStep(label, packageManagerCmd, args, options);
 }
 
 function runStep(label, command, args, { allowFailure = false, env } = {}) {
