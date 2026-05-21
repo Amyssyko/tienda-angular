@@ -2,70 +2,11 @@
 
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
-import path from "node:path";
 
-function sanitizePackageManagerExec(rawExecPath) {
-  if (typeof rawExecPath !== "string" || !rawExecPath.trim()) {
-    return null;
-  }
-
-  const execPath = rawExecPath.trim();
-  if (/[\r\n\0]/.test(execPath)) {
-    return null;
-  }
-
-  const base = path.basename(execPath).toLowerCase();
-  const allowed = new Set([
-    "npm",
-    "npm.cmd",
-    "npm.ps1",
-    "npx",
-    "npx.cmd",
-    "npx.ps1",
-    "pnpm",
-    "pnpm.cmd",
-    "pnpm.ps1",
-    "yarn",
-    "yarn.cmd",
-    "yarn.ps1",
-    "bun",
-    "bun.exe",
-    "bun.cmd",
-    "bun.ps1",
-    "npm-cli.js",
-    "npm-cli.cjs",
-    "npm-cli.mjs",
-    "pnpm.cjs",
-    "pnpm.mjs",
-    "yarn.js",
-    "yarn.cjs",
-    "yarn.mjs",
-  ]);
-
-  return allowed.has(base) ? execPath : null;
-}
-
-const packageManagerExec = sanitizePackageManagerExec(process.env.npm_execpath);
-const runWithNode = Boolean(
-  packageManagerExec && /\.(cjs|mjs|js)$/i.test(packageManagerExec),
-);
+const packageManagerCmd = process.platform === "win32" ? "bun.exe" : "bun";
 
 function runPackageManagerStep(label, args, options) {
-  if (runWithNode && packageManagerExec) {
-    return runStep(
-      label,
-      process.execPath,
-      [packageManagerExec, ...args],
-      options,
-    );
-  }
-
-  if (packageManagerExec) {
-    return runStep(label, packageManagerExec, args, options);
-  }
-
-  const bunCmd = process.platform === "win32" ? "bun.exe" : "bun";
-  return runStep(label, bunCmd, args, options);
+  return runStep(label, packageManagerCmd, args, options);
 }
 
 function runStep(label, command, args, { allowFailure = false, env } = {}) {
